@@ -5,6 +5,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TextInput from 'react-native-textinput-with-icons';
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import RazorpayCheckout from 'react-native-razorpay';
+import Toast from 'react-native-root-toast';
 const maxWidth = Dimensions.get("window").width;
 const imageHeight = (maxWidth / 16) * 9;
 var fixWidth = maxWidth / 1
@@ -15,6 +16,7 @@ export class WalletScreen extends Component {
         super(props)
 
         this.state = {
+            activeSlide: 0,
             Money: [
                 {
                     amount: '100'
@@ -38,15 +40,25 @@ export class WalletScreen extends Component {
                 {
                     id: 3,
                     image: require("../../res/wall3.jpg"),
-
                 },
             ],
             Addamount: 0
         }
     }
+    _showToast = message => {
+        Toast.show(message, {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.CENTER,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+        });
+    }
 
     _onPressButton() {
         // console.log('item', item);
+        if(!this.state.Addamount == 0){
         var options = {
             // description: item.description,
             //  image: item.avatar,
@@ -72,6 +84,9 @@ export class WalletScreen extends Component {
             // alert(`Error: ${error.code} | ${error.description}`);
             console.log(`Error: ${error.code} | ${error.description}`);
         });
+        } else {
+            this._showToast(`Please enter amount`);
+        }
     }
 
     _renderItem({ item, index }) {
@@ -85,7 +100,6 @@ export class WalletScreen extends Component {
                 }}>
                 <Image source={item.image} resizeMode={'stretch'} style={{ height: 200, width: "96%", position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, borderRadius: 5, }} />
             </View>
-
         );
     }
 
@@ -134,9 +148,7 @@ export class WalletScreen extends Component {
                                 inactiveDotOpacity={0.9}
                                 inactiveDotScale={0.6}
                             />
-
                         </View>
-
                         <View style={{ margin: 10, padding: 10, backgroundColor: 'white', borderRadius: 10, }}>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around', borderBottomColor: 'lightgrey', borderBottomWidth: 1.2, paddingBottom: 10, marginTop: 15, }}>
                                 <View style={{ height: 55, width: 120, backgroundColor: 'white', justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
@@ -151,7 +163,7 @@ export class WalletScreen extends Component {
                             <View style={{ height: 55, width: '100%', backgroundColor: 'white', borderBottomWidth: 1, borderBottomColor: 'lightgrey', marginTop: 20, justifyContent: 'center', alignSelf: 'center' }}>
                                 <View style={{ flexDirection: 'row', }}>
                                     <Text style={{ fontSize: 16, marginTop: 20, marginHorizontal: 25 }}>₹</Text>
-                                    <TextInput
+                                   <TextInput
                                         //containerWidth={fixWidth / 2}
                                         noUnderline={true}
                                         keyboardType="numeric"
@@ -164,7 +176,7 @@ export class WalletScreen extends Component {
                                         refrance={(refrance) => {
                                             this.input = refrance;
                                         }}
-                                        onChangeText={(Addamount) => this.setState({ Addamount })}
+                                        onChangeText={(Addamount) => this.setState({ Addamount:Addamount })}
                                     />
                                 </View>
                             </View>
@@ -172,7 +184,7 @@ export class WalletScreen extends Component {
                                 <View style={{ flexDirection: 'row', }}>
                                     <TouchableOpacity onPress={() => this._onPressButton()}
                                         style={{ flex: 1, width: '100%', height: 50, borderRadius: 5, borderColor: 'orange', borderWidth: 1, marginTop: 10, justifyContent: 'center', alignSelf: 'center' }}>
-                                        <Text style={{ textAlign: 'center', color: 'Black', fontSize: 18, fontWeight: 'bold', }}>Add Money</Text>
+                                        <Text style={{ textAlign: 'center', color: 'black', fontSize: 18, fontWeight: 'bold', }}>Add Money</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>

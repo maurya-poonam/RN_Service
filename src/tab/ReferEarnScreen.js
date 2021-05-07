@@ -1,11 +1,30 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity, ToastAndroid, Clipboard , Image, ScrollView,Linking} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-
 export class ReferEarnScreen extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+        }
+    }
+    shareWhatsApp(){
+        const url = `https://wa.me/?text='Share with whatsapp'`;
+        Linking.openURL(url);
+    }
+
+    shareMessengerApp(){
+        const url = `https://www.messenger.com/?text='Share with messenger'`;
+        Linking.openURL(url);
+    }
+
+   shareCopyApp = async () => {
+        await Clipboard.setString('https://wa.me/?text');
+        ToastAndroid.show('copy link', ToastAndroid.SHORT);
+    }
+
     render() {
         return (
             <SafeAreaView style={{ flex: 1, height: '100%', backgroundColor: '#f0f2f0', }}>
@@ -35,19 +54,19 @@ export class ReferEarnScreen extends Component {
                             </View>
                             <View style={{ height: 100, width: '100%', flexDirection: 'row' }}>
                                 <View style={{ flex: 1, }}>
-                                    <TouchableOpacity onPress={() => console.log('whatsapp')}>
+                                    <TouchableOpacity onPress={() => {this.shareWhatsApp()}}>
                                         <Icon name='md-logo-whatsapp' size={35} color={'green'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} />
                                         <Text style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 3, }}>Whatsapp</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ flex: 1 }}>
-                                    <TouchableOpacity onPress={() => console.log('Messager')}>
+                                    <TouchableOpacity onPress={() => {this.shareMessengerApp()}}>
                                         <MaterialCommunityIcons name='facebook-messenger' size={35} color={'#03b6fc'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} />
                                         <Text style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 3, }}>Messenger</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ flex: 1, }}>
-                                    <TouchableOpacity onPress={() => console.log('copylink')}>
+                                    <TouchableOpacity onPress={() => {this.shareCopyApp()}}>
                                         <FontAwesome5 name='link' size={35} color={'#067ed4'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} />
                                         <Text style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 3, }}>Copy Link</Text>
                                     </TouchableOpacity>

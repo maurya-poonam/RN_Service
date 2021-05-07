@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import TextInput from 'react-native-textinput-with-icons';
 import SelectPicker from 'react-native-form-select-picker'
 import Icon from 'react-native-vector-icons/Ionicons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 const { width } = Dimensions.get('window')
 var fixWidth = width / 1.7
 
@@ -19,6 +20,7 @@ export class AddressBookScreen extends Component {
             selectcity: '',
             Addaddress: '',
             AddroadName: '',
+            Addtype: 1,
             data: [
                 { id: 'a', text: 'This text value 1' },
             ],
@@ -149,6 +151,7 @@ export class AddressBookScreen extends Component {
     }
 
     saveValueFunction = () => {
+        AsyncStorage.setItem('any_key_here', this.state.Addtype)
         AsyncStorage.setItem('any_key_here', this.state.pincode)
         AsyncStorage.setItem('any_key_here', this.state.selectstate)
         AsyncStorage.setItem('any_key_here', this.state.selectcity)
@@ -156,13 +159,14 @@ export class AddressBookScreen extends Component {
         AsyncStorage.setItem('any_key_here', this.state.AddroadName)
         // setTextInputValue('');
         this.setState({
-            pincode:'',
-            selectstate:'',
-            selectcity:'',
+            pincode: '',
+            selectstate: '',
+            selectcity: '',
             Addaddress: '',
-            AddroadName:''
+            AddroadName: ''
         })
         ToastAndroid.show('Save Data', ToastAndroid.SHORT);
+        console.log(JSON.stringify(this.state.Addtype))
         console.log(JSON.stringify(this.state.pincode))
         console.log(JSON.stringify(this.state.selectstate))
         console.log(JSON.stringify(this.state.selectcity))
@@ -193,7 +197,7 @@ export class AddressBookScreen extends Component {
                         <TouchableOpacity
                             onPress={() => this.setModalVisible(true)}>
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignSelf: 'flex-start', marginLeft: 10, marginTop: 15, }}>
-                                <AntDesign name='plus' size={20} color={'#4169E1'} style={{marginTop: 3}} />
+                                <AntDesign name='plus' size={20} color={'#4169E1'} style={{ marginTop: 3 }} />
                                 <Text style={{ fontSize: 18, color: '#4169E1', marginTop: 3, marginHorizontal: 5 }}>Add a new address</Text>
                             </View>
                         </TouchableOpacity>
@@ -209,6 +213,7 @@ export class AddressBookScreen extends Component {
                                                 fontSize: 16,
                                                 alignSelf: 'flex-start',
                                             }}>{this.state.getValue}</Text>
+                                           
                                         </View>
                                     </View>
                                 </View>
@@ -218,19 +223,21 @@ export class AddressBookScreen extends Component {
                     </View>
                     <View style={styles.centeredView}>
                         <Modal
-                            animationType="slide"
+                            animationType='silde'
                             swipeDirection="down"
                             transparent={false}
                             visible={modalVisible}
-                           // backdropColor={'green'}
-                           // backdropOpacity= {1}
-                           
                             onRequestClose={() => {
                                 this.setModalVisible(!modalVisible);
                             }}>
                             <View style={styles.centeredView}>
                                 <View style={styles.modalView}>
-                                    <Text style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', fontSize:18, fontWeight:'bold' }}>Address Detail</Text>
+                                    <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 24, marginBottom: 20, fontWeight: 'bold' }}>Address Detail</Text>
+                                    <Text style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', fontSize: 16, marginBottom: 5 }} >Type of address</Text>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <TouchableOpacity onPress={() => this.setState({Addtype:1 })} style={{ flexDirection: 'row', margin: 5, padding: 5, width: 100, height: 30, borderColor: this.state.Addtype == 1 ? 'black' : 'lightgrey', borderWidth: 1, borderRadius: 50, justifyContent: 'center', alignSelf: 'center' }}><Icon name='home' size={16} /><Text style={{ marginLeft: 8, marginTop: 0 }}>Home</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.setState({ Addtype:2})} style={{ flexDirection: 'row', margin: 5, padding: 5, width: 100, height: 30, borderColor: this.state.Addtype == 1 ? 'lightgrey' : 'black', borderWidth: 1, borderRadius: 50, justifyContent: 'center', alignSelf: 'center' }}><FontAwesome5 name='building' size={16} /><Text style={{ marginLeft: 8, marginTop: 0 }}>Work</Text></TouchableOpacity>
+                                    </View>
                                     <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '49%', height: 60, borderRadius: 5 }} >
                                         <TextInput
                                             //  containerWidth={300 / 2}
@@ -251,7 +258,7 @@ export class AddressBookScreen extends Component {
                                         />
                                     </View>
                                     {/* <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'lightgrey', marginTop: 10, width: 160, height: 60 }}> */}
-                                    <View style={{ flexDirection: 'row',}}>
+                                    <View style={{ flexDirection: 'row', }}>
                                         <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '49%', height: 60, borderRadius: 5 }}>
                                             <SelectPicker
                                                 //  style={{marginRight:10}}
@@ -262,12 +269,12 @@ export class AddressBookScreen extends Component {
                                                 placeholderStyle={{ color: 'black', right: 10, marginTop: 12 }}
                                             // selected={this.state.state}
                                             >
-                                                {Object.values(this.state.allState).map(({ label, index }) => (
-                                                    <SelectPicker.Item label={label} value={label} key={index} />
+                                                {Object.values(this.state.allState).map(({ label, index, value }) => (
+                                                    <SelectPicker.Item label={label} value={label} key={value} />
                                                 ))}
                                             </SelectPicker>
                                         </View>
-                                        <View style={{width:'2%'}}></View>
+                                        <View style={{ width: '2%' }}></View>
                                         <View style={{ justifyContent: 'space-around', alignSelf: 'flex-end', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '49%', height: 60, borderRadius: 5 }} >
                                             <TextInput
                                                 //  containerWidth={300 / 2}
@@ -282,7 +289,6 @@ export class AddressBookScreen extends Component {
                                                 refrance={(refrance) => {
                                                     this.input = refrance;
                                                 }}
-
                                                 onChangeText={(text) => this.setState({ selectcity: text })}
                                             />
                                         </View>
@@ -290,7 +296,7 @@ export class AddressBookScreen extends Component {
                                     {/* </View> */}
                                     <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '100%', height: 60, borderRadius: 5 }}>
                                         <TextInput
-                                          //  containerWidth={680 / 2}
+                                            //  containerWidth={680 / 2}
                                             noUnderline={true}
                                             labelColor={'black'}
                                             label="House No., Building Name"
@@ -309,7 +315,7 @@ export class AddressBookScreen extends Component {
                                     </View>
                                     <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '100%', height: 60, borderRadius: 5 }}>
                                         <TextInput
-                                         //   containerWidth={680 / 2}
+                                            //   containerWidth={680 / 2}
                                             noUnderline={true}
                                             labelColor={'black'}
                                             label="Road name, Area, Colony"
@@ -324,8 +330,8 @@ export class AddressBookScreen extends Component {
                                             onChangeText={(text) => this.setState({ AddroadName: text })}
                                         />
                                     </View>
-                                    <TouchableOpacity onPress={() => this.saveValueFunction()} style={{height: 40, width: '100%', justifyContent: 'center', alignSelf: 'center', backgroundColor: 'black', marginTop: 20, borderRadius: 5}}>
-                                            <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 18, fontWeight: 'bold', color: 'white' }}>Save Address</Text>
+                                    <TouchableOpacity onPress={() => this.saveValueFunction()} style={{ height: 40, width: '100%', justifyContent: 'center', alignSelf: 'center', backgroundColor: 'black', marginTop: 20, borderRadius: 5 }}>
+                                        <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 18, fontWeight: 'bold', color: 'white' }}>Save Address</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -348,37 +354,22 @@ const styles = StyleSheet.create({
     },
     modalView: {
         marginTop: 20,
-        backgroundColor: '#dfe6f0',
+        //  backgroundColor: '#dfe6f0',
         width: '100%',
-        height: '96%',
+        height: '100%',
         //  borderRadius: 10,
         padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 1
+        // alignItems: "center",
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 4,
+        // elevation: 1
     },
-    button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-    },
-    buttonOpen: {
-        backgroundColor: "#F194FF",
-    },
-    buttonClose: {
-        backgroundColor: "#2196F3",
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
+   
 
 });
 

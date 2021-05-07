@@ -224,11 +224,22 @@ export class ProfileScreen extends Component {
                     })
                     console.log('profile data get :' + JSON.stringify(mobileNo));
                     console.log('get image name :' + JSON.stringify(response.responsedata.avatar));
-                    console.log('selected state: ' + response.responsedata.state)
-                    console.log('selected  city: ' + response.responsedata.city)
+                    // console.log('selected state: ' + response.responsedata.state)
+                    // console.log('selected  city: ' + response.responsedata.city)
                 }
             })
             .catch(error => console.log('error : ' + error));
+    }
+
+    _showToast = message => {
+        Toast.show(message, {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.CENTER,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+        });
     }
 
     _UpdateProfileDatavalidation = async () => {
@@ -253,21 +264,28 @@ export class ProfileScreen extends Component {
                     emailError: ''
                 });
 
-                // if (this.state.gender == 'Male') {
-                //     this.setState({
-                //         genderError: 'Please select an option'
-                //     })
-                // } else if (this.state.gender == 'Female') {
-                //     this.setState({
-                //         genderError: 'Please select an option'
-                //     })
-                // }
-                // else {
-                //     this.setState({
-                //         genderError: ''
-                //     })
-                // }
-                this._CallUpdateProfileData();
+                if (this.state.state == '' || this.state.state == null || this.state.state == 'null') {
+                    console.log('not selected state')
+                    this._showToast(`Please select State`);
+                }
+                else {
+                    //console.log('selected state')
+                    if (this.state.city == '' || this.state.city == null || this.state.state == 'null') {
+                        console.log('not selected city')
+                        this._showToast(`Please select City`);
+                    }
+                    else {
+                        // console.log('selected city')
+                        if (this.state.gender == '' || this.state.gender == null) {
+                            // console.log('not selected')
+                            this._showToast(`Please select Gender`);
+                        }
+                        else {
+                            // console.log('selected')
+                            this._CallUpdateProfileData();
+                        }
+                    }
+                }
             }
         }
     }
@@ -479,10 +497,11 @@ export class ProfileScreen extends Component {
                                         // selected={this.state.state}
                                         // selected={this.state.state!=null?this.state.state.toString():""}
                                         >
-                                            {Object.values(this.state.allState).map(({ label, index }) => (
-                                                <SelectPicker.Item selected={this.state.state == index} label={label} value={label} key={index}
+                                            {Object.values(this.state.allState).map(({ label, index, value }) => (
+                                                <SelectPicker.Item selected={this.state.state == index} label={label} value={label} key={value}
                                                 // error={this.state.stateError}
                                                 />
+
                                             ))}
                                         </SelectPicker>
                                     </View>
@@ -497,13 +516,15 @@ export class ProfileScreen extends Component {
                                             placeholderStyle={{ color: 'black' }}
                                         // selected={this.state.city}
                                         >
-                                            {Object.values(tampvalue).map(({ name, index }) => (
-                                                <SelectPicker.Item selected={this.state.city == index} label={name} value={name} key={index} />
+                                            {Object.values(tampvalue).map(({ name, index, id }) => (
+                                                <SelectPicker.Item selected={this.state.city == index} label={name} value={name} key={id} />
                                             ))}
                                         </SelectPicker>
                                     </View>}
                                     <View style={{ marginTop: 10, borderBottomWidth: 1, borderBottomColor: 'grey', width: fixWidth, }}>
-                                        <RadioButton.Group onValueChange={(gender) => this.setState({ gender: gender })} value={this.state.gender}
+                                        <RadioButton.Group onValueChange={(gender, value) =>
+                                            this.setState({ gender: gender })}
+                                            value={this.state.gender}
                                         >
                                             {/* <Text>{this.state.genderError}</Text> */}
                                             <View style={{ flexDirection: 'row' }}>
