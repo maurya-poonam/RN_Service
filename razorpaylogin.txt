@@ -1,0 +1,13 @@
+nirodov590@0pppp.com
+
+password : abcd@123
+
+name: aaaa
+
+mobile number : 9999999999
+
+
+key id : rzp_test_mQXICSOiiBtN6i
+
+
+Key Secret : m7uMFFDFUIDw4tppE9q5wXWh
