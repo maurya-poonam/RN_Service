@@ -3,6 +3,7 @@ import { Text, View, SafeAreaView, TouchableOpacity, ToastAndroid, Clipboard , I
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Toast from 'react-native-root-toast';
 
 export class ReferEarnScreen extends Component {
     constructor(props) {
@@ -10,6 +11,18 @@ export class ReferEarnScreen extends Component {
         this.state = {
         }
     }
+
+    _showToast = message => {
+        Toast.show(message, {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.DOWN,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+        });
+    }
+
     shareWhatsApp(){
         const url = `https://wa.me/?text='Share with whatsapp'`;
         Linking.openURL(url);
@@ -22,7 +35,8 @@ export class ReferEarnScreen extends Component {
 
    shareCopyApp = async () => {
         await Clipboard.setString('https://wa.me/?text');
-        ToastAndroid.show('copy link', ToastAndroid.SHORT);
+        //ToastAndroid.show('copy link', ToastAndroid.SHORT);
+        this._showToast(`Copy link`);
     }
 
     render() {

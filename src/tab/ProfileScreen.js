@@ -13,7 +13,6 @@ import { RadioButton } from 'react-native-paper';
 import { makeRequest } from '../api/apiCall';
 import APIConstant from '../api/apiConstant';
 import SelectPicker from 'react-native-form-select-picker'
-
 import AllState from '../tab/AllState';
 const window = Dimensions.get('window');
 const { width, height } = window;
@@ -169,6 +168,7 @@ export class ProfileScreen extends Component {
         this.setState({
             isLoginShow: !this.state.isLoginShow
         })
+      //  this.componentDidMount()
         this.props.navigation.dispatch(
             CommonActions.reset({
                 index: 1,

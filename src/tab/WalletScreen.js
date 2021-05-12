@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, TouchableOpacity, Image, FlatList, ScrollView, Dimensions } from 'react-native'
+import { Text, View, SafeAreaView, TouchableOpacity, Image, ToastAndroid, FlatList, ScrollView, Dimensions, Clipboard, Linking } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import TextInput from 'react-native-textinput-with-icons';
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import RazorpayCheckout from 'react-native-razorpay';
@@ -17,6 +19,7 @@ export class WalletScreen extends Component {
 
         this.state = {
             activeSlide: 0,
+            Balance: 0,
             Money: [
                 {
                     amount: '100'
@@ -55,37 +58,63 @@ export class WalletScreen extends Component {
             delay: 0,
         });
     }
+    shareWhatsApp() {
+        const url = `https://wa.me/?text='Share with whatsapp'`;
+        Linking.openURL(url);
+    }
+
+    shareMessengerApp() {
+        const url = `https://www.messenger.com/?text='Share with messenger'`;
+        Linking.openURL(url);
+    }
+
+    shareCopyApp = async () => {
+        await Clipboard.setString('https://wa.me/?text');
+        //ToastAndroid.show('copy link', ToastAndroid.SHORT);
+        this._showToast(`Copy link`);
+    }
 
     _onPressButton() {
         // console.log('item', item);
-        if(!this.state.Addamount == 0){
-        var options = {
-            // description: item.description,
-            //  image: item.avatar,
-            currency: 'INR',
-            key: 'rzp_test_mQXICSOiiBtN6i',
-            amount: this.state.Addamount * 100,
-            // name: item.name,
-            prefill: {
-                email: 'void@gmail.com',
-                contact: '9191917680',
-                name: 'Razorpay Software'
-            },
-            theme: { color: '#FFA500' }
-        }
-        RazorpayCheckout.open(options).then((data) => {
-            // handle success
-            debugger;
-            //alert(`Success: ${data.razorpay_payment_id}`);
-            console.log(`Success: ${data.razorpay_payment_id}`);
-        }).catch((error) => {
-            debugger;
-            // handle failure
-            // alert(`Error: ${error.code} | ${error.description}`);
-            console.log(`Error: ${error.code} | ${error.description}`);
-        });
+        if (this.state.Addamount % 1 == 0) {
+            if (!this.state.Addamount == 0) {
+                var options = {
+                    // description: item.description,
+                    //  image: item.avatar,
+                    currency: 'INR',
+                    key: 'rzp_test_mQXICSOiiBtN6i',
+                    amount: this.state.Addamount * 100,
+                    // name: item.name,
+                    prefill: {
+                        email: 'void@gmail.com',
+                        contact: '9191917680',
+                        name: 'Razorpay Software'
+                    },
+                    theme: { color: '#FFA500' }
+                }
+                RazorpayCheckout.open(options).then((data) => {
+                    // handle success
+                    debugger;
+                    console.log("all data " + JSON.stringify(data))
+                    //alert(`Success: ${data.razorpay_payment_id}`);
+                    if (data.razorpay_payment_id != null) {
+                        this.setState({
+                            Balance: parseInt(this.state.Balance) + parseInt(this.state.Addamount)
+                        })
+                        alert("Balance updated")
+                    }
+                    console.log(`Success: ${data.razorpay_payment_id}`);
+                }).catch((error) => {
+                    debugger;
+                    // handle failure
+                    // alert(`Error: ${error.code} | ${error.description}`);
+                    console.log(`Error: ${error.code} | ${error.description}`);
+                });
+            } else {
+                this._showToast(`Please enter amount`);
+            }
         } else {
-            this._showToast(`Please enter amount`);
+            alert("Please enter amount without point.")
         }
     }
 
@@ -153,22 +182,25 @@ export class WalletScreen extends Component {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around', borderBottomColor: 'lightgrey', borderBottomWidth: 1.2, paddingBottom: 10, marginTop: 15, }}>
                                 <View style={{ height: 55, width: 120, backgroundColor: 'white', justifyContent: 'flex-start', alignSelf: 'flex-start' }}>
                                     <Icon name='md-wallet' size={25} color={'#58a9f5'} style={{ margin: 5, justifyContent: 'center', alignSelf: 'center' }} />
-                                    <Text style={{ bottom: 6, justifyContent: 'center', alignSelf: 'center', fontSize: 14 }}>Balance ₹ 0</Text>
+                                    <Text style={{ bottom: 6, justifyContent: 'center', alignSelf: 'center', fontSize: 14 }}>Balance ₹ {this.state.Balance}</Text>
                                 </View>
-                                <View style={{ height: 55, width: 120, backgroundColor: 'white', justifyContent: 'flex-end', alignSelf: 'flex-end' }}>
-                                    <Icon name='md-gift' size={25} color={'grey'} style={{ margin: 5, justifyContent: 'center', alignSelf: 'center' }} />
-                                    <Text style={{ bottom: 6, justifyContent: 'center', alignSelf: 'center', fontSize: 14 }}>Gift Card</Text>
-                                </View>
+                                <TouchableOpacity>
+                                    <View style={{ height: 55, width: 120, backgroundColor: 'white', justifyContent: 'flex-end', alignSelf: 'flex-end' }}>
+                                        <Icon name='md-gift' size={25} color={'grey'} style={{ margin: 5, justifyContent: 'center', alignSelf: 'center' }} />
+                                        <Text style={{ bottom: 6, justifyContent: 'center', alignSelf: 'center', fontSize: 14 }}>Gift Card</Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                             <View style={{ height: 55, width: '100%', backgroundColor: 'white', borderBottomWidth: 1, borderBottomColor: 'lightgrey', marginTop: 20, justifyContent: 'center', alignSelf: 'center' }}>
                                 <View style={{ flexDirection: 'row', }}>
                                     <Text style={{ fontSize: 16, marginTop: 20, marginHorizontal: 25 }}>₹</Text>
-                                   <TextInput
+                                    <TextInput
                                         //containerWidth={fixWidth / 2}
                                         noUnderline={true}
                                         keyboardType="numeric"
                                         labelColor={'black'}
                                         label="Enter amount"
+
                                         underlineColor={'grey'}
                                         underlineActiveColor={'black'}
                                         labelActiveColor={'black'}
@@ -176,7 +208,9 @@ export class WalletScreen extends Component {
                                         refrance={(refrance) => {
                                             this.input = refrance;
                                         }}
-                                        onChangeText={(Addamount) => this.setState({ Addamount:Addamount })}
+                                        onChangeText={(Addamount) =>
+                                            this.setState({ Addamount: Addamount })
+                                        }
                                     />
                                 </View>
                             </View>
@@ -207,9 +241,9 @@ export class WalletScreen extends Component {
                                 keyExtractor={item => item.id}
                                 numColumns={numColumns}
                             />
-                            <View style={{margin:0, padding:0, marginTop: 20, width: '100%' }}>
-                                <View style={{ flexDirection: 'row',width:'100%',justifyContent:'space-between' }}>
-                                    <View style={{borderColor:'lightgrey',borderWidth:1.2,justifyContent:'center',alignSelf:'center',width:'30%'}} />
+                            {/* <View style={{ margin: 0, padding: 0, marginTop: 20, width: '100%' }}>
+                                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                                    <View style={{ borderColor: 'lightgrey', borderWidth: 1.2, justifyContent: 'center', alignSelf: 'center', width: '30%' }} />
                                     <View style={{ justifyContent: 'center', alignSelf: 'center' }}>
                                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Refer')} >
                                             <View style={{ flexDirection: 'row', }}>
@@ -218,9 +252,60 @@ export class WalletScreen extends Component {
                                             </View>
                                         </TouchableOpacity>
                                     </View>
-                                    <View style={{borderColor:'lightgrey',borderWidth:1.2,justifyContent:'center',alignSelf:'center',width:'30%'}} />                          
+                                    <View style={{ borderColor: 'lightgrey', borderWidth: 1.2, justifyContent: 'center', alignSelf: 'center', width: '30%' }} />
+                                </View>
+                            </View> */}
+                            <View style={{ backgroundColor: 'white', marginTop: 10, width: '100%', }}>
+                                <View style={{ margin: 5, padding: 5, marginTop: 10, }}>
+                                    <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
+                                        <View style={{
+                                            borderColor: 'lightgrey', borderWidth: 1, justifyContent: 'center', alignSelf: 'center', width: '40%'
+                                        }} />
+                                        <View style={{ justifyContent: 'center', alignSelf: 'center', width:'20%', }}>
+                                            <Text style={{ fontSize: 16, marginHorizontal: 10, textAlign:'center' }}>Refer via</Text>
+                                        </View>
+                                        <View style={{
+                                            borderColor: 'lightgrey', borderWidth: 1, justifyContent: 'center', alignSelf: 'center', width: '40%'
+                                        }} />
+                                    </View>
+                                </View>
+                                <View style={{ height: 100, width: '100%', flexDirection: 'row' }}>
+                                    <View style={{ flex: 1, }}>
+                                        <TouchableOpacity onPress={() => { this.shareWhatsApp() }}>
+                                            <Icon name='md-logo-whatsapp' size={35} color={'green'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} />
+                                            <Text style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 3, }}>Whatsapp</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ flex: 1 }}>
+                                        <TouchableOpacity onPress={() => { this.shareMessengerApp() }}>
+                                            <MaterialCommunityIcons name='facebook-messenger' size={35} color={'#03b6fc'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} />
+                                            <Text style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 3, }}>Messenger</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                    <View style={{ flex: 1, }}>
+                                        <TouchableOpacity onPress={() => { this.shareCopyApp() }}>
+                                            <FontAwesome5 name='link' size={35} color={'#067ed4'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} />
+                                            <Text style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 3, }}>Copy Link</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <View style={{ margin: 5, width: '100%' }}>
+                                    <Text style={{ marginLeft: 10, margin: 5, padding: 5, marginTop: 15, fontSize: 25, fontWeight: 'bold' }}>How it works?</Text>
+                                    <View style={{ flexDirection: 'row', margin: 5, padding: 5 }}>
+                                        <View style={{ width: 60, height: 60, backgroundColor: 'lightgrey', borderRadius: 60 }}><MaterialCommunityIcons name='email-newsletter' size={30} color={'#00BFFF'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} /></View>
+                                        <View><Text style={{ fontSize: 18, margin: 8, padding: 8 }}>Invite your friends to blueTimo</Text></View>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', margin: 5, padding: 5 }}>
+                                        <View style={{ width: 60, height: 60, backgroundColor: 'lightgrey', borderRadius: 60 }}><FontAwesome5 name='hand-point-up' size={30} color={'orange'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} /></View>
+                                        <View><Text style={{ fontSize: 18, margin: 8, padding: 8 }}>They will receive a reward of ₹200 on sigup</Text></View>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', margin: 5, padding: 5 }}>
+                                        <View style={{ width: 60, height: 60, backgroundColor: 'lightgrey', borderRadius: 60 }}><FontAwesome5 name='rupee-sign' size={30} color={'#1E90FF'} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 15 }} /></View>
+                                        <View style={{ width: '80%' }}><Text style={{ fontSize: 18, margin: 8, paddingHorizontal: 6 }}>You receive a reward of upto ₹2000, once they book a service</Text></View>
+                                    </View>
                                 </View>
                             </View>
+
                         </View>
                     </ScrollView>
                 </View>

@@ -105,13 +105,13 @@ export class ShopsPackageData extends Component {
         }).catch(error => {
             console.log('error: ' + error)
             Alert.alert('Oppss...', 'Something went wrong.');
-
         });
     }
 
     handleClick() {
         //this.state.loginModalCheck
-        this.setState({ isLoginShow: !this.state.isLoginShow },()=>{this.componentDidMount()})
+        this.setState({ isLoginShow: !this.state.isLoginShow }, () => { this.componentDidMount() })
+        this.componentDidMount()
     }
     // payment
     _onPressButton(item) {
@@ -152,7 +152,7 @@ export class ShopsPackageData extends Component {
 
         return (
             <View style={{ height: '100%', backgroundColor: '#f0f2f0', }}>
-                {this.state.isLoginShow && <LoginModel  handleClickfunction={this.handleClick} />}
+                {this.state.isLoginShow && <LoginModel handleClickfunction={this.handleClick} />}
                 <ScrollView>
                     <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: 'black', }} >
                         <TouchableOpacity style={{ margin: 5, padding: 5, alignSelf: 'center' }}
@@ -182,8 +182,8 @@ export class ShopsPackageData extends Component {
                                         <Text style={{ color: 'black', fontSize: 18, }}>{item.name}</Text>
                                         <View style={{ flexDirection: 'row', justifyContent: 'flex-start', }}>
                                             <Text style={{ color: 'black', fontSize: 12, }}> ₹ {item.price}</Text>
-                                            <MaterialCommunityIcons name='clock-outline' size={12} color={'grey'} style={{  marginLeft: 8 }} /><Text style={{ color: 'grey', fontSize: 12, }}> {item.duration} min</Text>
-                                           
+                                            <MaterialCommunityIcons name='clock-outline' size={12} color={'grey'} style={{ marginLeft: 8 }} /><Text style={{ color: 'grey', fontSize: 12, }}> {item.duration} min</Text>
+
                                             {/*<View style={{ flex: 1 }}>
                                                 {this.state.checktoken != null ?
                                                     <TouchableOpacity
@@ -202,22 +202,22 @@ export class ShopsPackageData extends Component {
                                                 }
                                             </View>*/}
                                             <View style={{ flex: 1 }}>
-                                                    <TouchableOpacity
-                                                        //   onPress={() => this._onPressButton(item)
-                                                        onPress={() => 
-                                                            this.state.checktoken ?
-                                                            this.props.navigation.navigate('OrderService',  { Id: item.id, Name:item.name, Price:item.price, Duration:item.duration, Avatar:item.avatar, Description:item.description}) :
-                                                            this.setState({isLoginShow:true})
-                                                        }
-                                                    >
-                                                        <View style={{ flex: 1, justifyContent: 'flex-end', alignSelf: 'flex-end', backgroundColor: '#6495ED', width: 90, height: 40, borderRadius: 10, marginTop: -15 }}>
-                                                            <Text style={{ flex: 1, alignSelf: 'center', marginTop: 8, color: 'white', fontSize: 16, fontWeight: 'bold' }}>Order</Text>
-                                                        </View>
-                                                    </TouchableOpacity>                                                
-                                                    <View>
+                                                <TouchableOpacity
+                                                    //   onPress={() => this._onPressButton(item)
+                                                    onPress={() =>
+                                                        this.state.checktoken ?
+                                                            this.props.navigation.navigate('OrderService', { Id: item.id, Name: item.name, Price: item.price, Duration: item.duration, Avatar: item.avatar, Description: item.description }) :
+                                                            this.setState({ isLoginShow: true })
+                                                    }
+                                                >
+                                                    <View style={{ flex: 1, justifyContent: 'flex-end', alignSelf: 'flex-end', backgroundColor: '#6495ED', width: 90, height: 40, borderRadius: 10, marginTop: -15 }}>
+                                                        <Text style={{ flex: 1, alignSelf: 'center', marginTop: 8, color: 'white', fontSize: 16, fontWeight: 'bold' }}>Order</Text>
                                                     </View>
+                                                </TouchableOpacity>
+                                                <View>
+                                                </View>
                                             </View>
-                                        </View>
+                                        </View> 
 
                                         <View style={{ borderTopWidth: 0.8, borderTopColor: 'grey', marginTop: 10, width: '100%' }}>
                                             <View style={{ flexDirection: 'row', marginTop: 10 }}>

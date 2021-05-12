@@ -80,7 +80,7 @@ export class FavoriteOrderScreen extends Component {
                     ListEmptyComponent={<Text style={{ justifyContent: 'center', alignSelf: 'center', }}>No Data</Text>}
                     renderItem={({ item }) => (
                         <View style={{ height: 80, width: '100%', justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 5, borderBottomColor: 'lightgrey', borderBottomWidth: 1, }}>
-                            <TouchableOpacity onPress={() => alert('call')}>
+                            <TouchableOpacity onPress={() => console.log('call')}>
                                 <View style={{ flexDirection: 'row', }}>
                                     <View>
                                         <Image

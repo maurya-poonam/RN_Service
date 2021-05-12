@@ -189,7 +189,9 @@ export class HomeScreen extends Component {
         return (
             <View style={{ flex: 1, backgroundColor: '#f0f2f0', }}>
                 <View>
-                    {this.state.loginModalCheck && <LoginModel  handleClickfunction={this.handleClick}/>}
+                    {this.state.loginModalCheck && <LoginModel 
+                     handleClickfunction={this.handleClick}
+                    />}
                 </View>
                 {!this.state.appLoading && this.state.timer < 2 ?
                     <View>

@@ -97,7 +97,8 @@ export class ServiceDetailScreen extends Component {
                                                 <Image source={{ uri: item.avatar }} style={{ width: 100, height: 70, borderRadius: 10 }} />
                                                 <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', marginLeft: 10}}>
                                                     <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'grey', marginLeft:3 }}>{item.name}</Text>
-                                                    <Rating type={'star'} imageSize={10} style={{ color: 'black', marginRight: 100, marginLeft:3  }} />
+                                                    <Rating type={'star'} imageSize={10} style={{ color: 'black', marginRight: 100, marginLeft:3  }}>{item.avgRating}</Rating>
+                                                    {/* <Text style={{color: 'black', marginRight: 100, marginLeft:3}}>{item.avgRating}</Text> */}
                                                     <View style={{flexDirection:'row'}}><MaterialIcons name='location-pin' size={16} color={'grey'} style={{marginTop:3}} /><Text style={{ fontSize: 14, fontWeight: 'bold', color: 'grey', }}> {item.location}</Text></View>
                                                     <View style={{flexDirection:'row'}}><MaterialIcons name='call' size={16} color={'grey'} style={{marginTop:3}} /><Text style={{ fontSize: 14, fontWeight: 'bold', color: 'grey', }}> {item.mobileNo}</Text></View>
                                                 </View>

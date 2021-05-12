@@ -39,7 +39,7 @@ export class LoginModel extends Component {
         this.validates = this.validates.bind(this);
     }
     handleClickfunction2() {
-         this.props.handleClickfunction()
+        this.props.handleClickfunction()
         // BackHandler.exitApp();
     }
     //async storage
@@ -97,7 +97,7 @@ export class LoginModel extends Component {
         } catch (error) {
             console.log('error while store data : ' + error)
         } finally {
-            this.setState({ modalVisible: false })
+            //this.setState({ modalVisible: false })
         }
     }
 
@@ -128,9 +128,10 @@ export class LoginModel extends Component {
                     // alert(response.statusMessage);
                     this._storeAppData(response);
                     console.log('login' + JSON.stringify(response));
-                    this.setState({
-                        modalVisible: false
-                    })
+                    // this.setState({ modalVisible: false })
+                    // this.setState({
+                    //     modalVisible: false
+                    // })
                     this.handleClickfunction2()
                     // this._storeLoginData(response.responsedata);
                     // this.props.navigation.push('HomeApp');
@@ -174,7 +175,7 @@ export class LoginModel extends Component {
                         name: null,
                         password: null,
                         confirmPassword: null,
-                        modalVisible:false
+                        modalVisible: false
                     })
                     // this._storeAppData(response);
                     // this._storeLoginData(response.responsedata);
@@ -208,17 +209,23 @@ export class LoginModel extends Component {
             this.setState({
                 phoneError: ''
             })
-            if (this.state.loginPassword) {
-                this.setState({
-                    LoginpasswordError: ''
-                })
-                this._callLogin();
-            } else {
-                this.setState({
-                    LoginpasswordError: 'Please enter valid password'
-                });
-            }
         }
+
+        if (this.state.loginPassword) {
+            this.setState({
+                LoginpasswordError: ''
+            })
+            // this._callLogin();
+        } else {
+            this.setState({
+                LoginpasswordError: 'Please enter valid password'
+            });
+        }
+
+        if (this.state.phonenumber !== '' && this.state.loginPassword !== '') {
+            this._callLogin();
+        }
+
     }
 
     // Sign up calling 
@@ -231,49 +238,45 @@ export class LoginModel extends Component {
         }
         else {
             this.setState(() => ({ nameError: '' }));
-            if (reg.test(this.state.mobilenumber) === false) {
-                this.setState({
-                    mobileError: 'Please enter valid Mobile Number'
-                })
-                return false;
+        }
+
+        if (reg.test(this.state.mobilenumber) === false) {
+            this.setState({
+                mobileError: 'Please enter valid Mobile Number'
+            })
+        }
+        else {
+            this.setState({
+                mobileError: ''
+            })
+        }
+        if (this.state.password) {
+            this.setState({
+                passwordError: ''
+            })
+        }
+        else {
+            this.setState({ passwordError: 'Please enter a valid password' })
+        }
+
+        if (this.state.confirmPassword) {
+            if (this.state.password === this.state.confirmPassword) {
+                this.setState(() => ({
+                    c_passwordError: ''
+                }));
+                // this._callSignUp();
             }
             else {
-                this.setState({
-                    mobileError: ''
-                })
-                if (this.state.password) {
-                    this.setState({
-                        passwordError: ''
-                    })
-                    if (this.state.confirmPassword) {
-                        this.setState({
-                            c_passwordError: ''
-                        })
-                        if (this.state.confirmPassword) {
-                            if (this.state.password === this.state.confirmPassword) {
-                                this.setState(() => ({
-                                    c_passwordError: ''
-                                }));
-                                this._callSignUp();
-                            }
-                            else {
-                                this.setState(() => ({
-                                    c_passwordError: 'Passwords did not match'
-                                }));
-                            }
-                        }
-
-                    } else {
-                        this.setState({
-                            c_passwordError: 'Please enter confirm password'
-                        });
-                    }
-                } else {
-                    this.setState({
-                        passwordError: 'Please enter valid password'
-                    });
-                }
+                this.setState(() => ({
+                    c_passwordError: 'Passwords did not match'
+                }));
             }
+        }
+        else {
+            this.setState({ c_passwordError: 'Please enter confirm password' })
+        }
+        if (this.state.name !== '' && this.state.mobilenumber !== '' && this.state.password !== '' && this.state.confirmPassword !== '' && this.state.password === this.state.confirmPassword) {
+                this._callSignUp();
         }
     }
     render() {
@@ -285,14 +288,13 @@ export class LoginModel extends Component {
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={() => {
-                         this.handleClickfunction2()
+                        this.handleClickfunction2()
                         //BackHandler.exitApp();
                     }}>
                     <SafeAreaView style={{ flex: 1 }}>
                         <View style={{
                             flex: 1,
                             backgroundColor: 'orange',
-
                         }}>
                             <Image source={require('../../res/logo.png')} resizeMode='contain' style={{ width: '30%', height: '20%', alignSelf: 'center', justifyContent: 'center', margin: 10 }} />
                             {
@@ -308,11 +310,11 @@ export class LoginModel extends Component {
                                                             disable={false}
                                                             animationType={'slide'}
                                                             containerStyle={{
-                                                               justifyContent: 'center',
+                                                                justifyContent: 'center',
                                                                 marginTop: 20,
                                                             }}
                                                             pickerTitleStyle={styles.pickerTitleStyle}
-                                                            dropDownImage={require('../../res/down.png')}
+                                                           // dropDownImage={require('../../res/down.png')}
                                                             selectedCountryTextStyle={styles.selectedCountryTextStyle}
                                                             countryNameTextStyle={styles.countryNameTextStyle}
                                                             pickerTitle={'Country Picker'}
@@ -375,28 +377,6 @@ export class LoginModel extends Component {
                                                         />
                                                     </View>
                                                 </View>
-                                                {/* <TextInput
-                                                    leftIcon="call"
-                                                    leftIconType="MaterialIcons"
-                                                    leftIconSize={20}
-                                                    leftIconColor={'black'}
-                                                    containerWidth={fixWidth}
-                                                    // containerWidth={100}
-                                                    //noUnderline={true}
-                                                    keyboardType="numeric"
-                                                    labelColor={'black'}
-                                                    label="Enter mobile number"
-                                                    underlineColor={'grey'}
-                                                    underlineActiveColor={'black'}
-                                                    labelActiveColor={'black'}
-                                                    value={this.state.phonenumber}
-                                                    refrance={(refrance) => {
-                                                        this.input = refrance;
-                                                    }}
-                                                    onChangeText={(text) => this.setState({ phonenumber: text })}
-                                                    error={this.state.phoneError}
-                                                /> */}
-
                                             </View>
                                             <View style={{ marginTop: 10, alignSelf: 'center', width: fixWidth, }}>
                                                 <TextInput
@@ -447,7 +427,7 @@ export class LoginModel extends Component {
                                             </View>
                                             <View>
                                                 <TouchableOpacity onPress={() =>
-                                                    this.setState({ modalVisible: false },()=>{this.handleClickfunction2()})
+                                                    this.setState({ modalVisible: false }, () => { this.handleClickfunction2() })
                                                     //  this.props.navigation.navigate('HomeApp')
                                                 }>
                                                     <View style={{ marginTop: 10, backgroundColor: 'lightgrey', borderColor: 'white', borderWidth: 1, width: 70, height: 40, borderRadius: 20, justifyContent: 'center', alignSelf: 'center' }}>
@@ -616,7 +596,7 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     container: {
-       flex: 1,
+        flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
     },

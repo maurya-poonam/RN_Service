@@ -193,7 +193,7 @@ export class AddressBookScreen extends Component {
                     <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', textAlign: 'center', margin: 5, padding: 5, justifyContent: 'center', alignSelf: 'center' }}>Address</Text>
                 </View>
                 <ScrollView>
-                    <View style={{ height: 60, borderRadius: 10, backgroundColor: 'white', margin: 10 }}>
+                    <View style={{ height: 60,backgroundColor: 'white', }}>
                         <TouchableOpacity
                             onPress={() => this.setModalVisible(true)}>
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignSelf: 'flex-start', marginLeft: 10, marginTop: 15, }}>
@@ -202,11 +202,12 @@ export class AddressBookScreen extends Component {
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={{ flex: 1, borderRadius: 10, margin: 10 }}>
+                    {/* <View style={{ flex: 1, marginTop:25 }}>
                         <FlatList
                             data={this.state.data}
+                            ListEmptyComponent={<Text style={{ justifyContent: 'center', alignSelf: 'center', }}>No Data</Text>}
                             renderItem={({ item }) => (
-                                <View style={{ backgroundColor: 'white', margin: 3, borderRadius: 10, elevation: 1 }}>
+                                <View style={{ backgroundColor: 'white', margin: 3,  elevation: 1 }}>
                                     <View style={{ flexDirection: 'row', height: 90, margin: 5, padding: 5, borderRadius: 10 }}>
                                         <View style={{ marginTop: 5 }}>
                                             <Text style={{
@@ -220,7 +221,7 @@ export class AddressBookScreen extends Component {
                             )}
                             keyExtractor={item => item.id}
                         />
-                    </View>
+                    </View> */}
                     <View style={styles.centeredView}>
                         <Modal
                             animationType='silde'
@@ -244,7 +245,7 @@ export class AddressBookScreen extends Component {
                                             noUnderline={true}
                                             labelColor={'black'}
                                             keyboardType="numeric"
-                                            label="Pincode"
+                                            label="   Pincode"
                                             underlineColor={'grey'}
                                             multiline={true}
                                             underlineActiveColor={'grey'}
@@ -265,7 +266,7 @@ export class AddressBookScreen extends Component {
                                                 onValueChange={(state) => {
                                                     this.setState({ selectstate: state })
                                                 }}
-                                                placeholder={'State'}
+                                                placeholder={'   State'}
                                                 placeholderStyle={{ color: 'black', right: 10, marginTop: 12 }}
                                             // selected={this.state.state}
                                             >
@@ -280,7 +281,7 @@ export class AddressBookScreen extends Component {
                                                 //  containerWidth={300 / 2}
                                                 noUnderline={true}
                                                 labelColor={'black'}
-                                                label="City"
+                                                label="   City"
                                                 underlineColor={'grey'}
                                                 multiline={true}
                                                 underlineActiveColor={'grey'}
@@ -299,7 +300,7 @@ export class AddressBookScreen extends Component {
                                             //  containerWidth={680 / 2}
                                             noUnderline={true}
                                             labelColor={'black'}
-                                            label="House No., Building Name"
+                                            label="   House No., Building Name"
                                             // placeholder={'House No, Building Name'}
                                             // placeholderTextColor="black"
                                             underlineColor={'grey'}
@@ -318,7 +319,7 @@ export class AddressBookScreen extends Component {
                                             //   containerWidth={680 / 2}
                                             noUnderline={true}
                                             labelColor={'black'}
-                                            label="Road name, Area, Colony"
+                                            label="   Road name, Area, Colony"
                                             underlineColor={'grey'}
                                             multiline={true}
                                             underlineActiveColor={'grey'}
@@ -330,7 +331,7 @@ export class AddressBookScreen extends Component {
                                             onChangeText={(text) => this.setState({ AddroadName: text })}
                                         />
                                     </View>
-                                    <TouchableOpacity onPress={() => this.saveValueFunction()} style={{ height: 40, width: '100%', justifyContent: 'center', alignSelf: 'center', backgroundColor: 'black', marginTop: 20, borderRadius: 5 }}>
+                                    <TouchableOpacity onPress={() => this.saveValueFunction()} style={{ height: 50, width: '100%', justifyContent: 'center', alignSelf: 'center', backgroundColor: 'black', marginTop: 15, borderRadius: 5 }}>
                                         <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 18, fontWeight: 'bold', color: 'white' }}>Save Address</Text>
                                     </TouchableOpacity>
                                 </View>

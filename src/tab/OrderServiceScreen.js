@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, SafeAreaView, TouchableOpacity, ScrollView, Dimensions, Image, FlatList } from 'react-native'
+import { Text, View, SafeAreaView, AsyncStorage, TouchableOpacity, ScrollView, Dimensions, Image, FlatList } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { RadioButton } from 'react-native-paper';
 import { makeRequest } from '../api/apiCall';
@@ -9,13 +9,16 @@ const maxWidth = Dimensions.get("window").width;
 const imageHeight = (maxWidth / 16) * 9;
 import TextInput from 'react-native-textinput-with-icons';
 import RazorpayCheckout from 'react-native-razorpay';
-
+import Toast from 'react-native-root-toast';
 
 export class OrderServiceScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            CustName: '',
+            CustEmail: '',
+            mobileNo: '',
             addpayment: '',
             ShpName: '',
             ShpMobileNo: '',
@@ -37,13 +40,56 @@ export class OrderServiceScreen extends Component {
         }
     }
 
+    _showToast = message => {
+        Toast.show(message, {
+            duration: Toast.durations.LONG,
+            position: Toast.positions.TOP,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+            //backgroundColor: "orange",
+            //textColor:'black'
+        });
+    }
+
     componentDidMount() {
         if (this.state.ServicePackageDetail == 'service') {
             this._CallGetServicePackageDetail();
         } else {
             this._CallGetShopsPackageDetail();
         }
+        AsyncStorage.getItem('mobileNo').then((mobileNo) => {
+            if (mobileNo != null) {
+                 this._GetCustomerDeatil(mobileNo);
+            }
+            console.log('check mobile no', this.state.checkmobileNo);
+        })
+    }
 
+    _GetCustomerDeatil = (mobileNo) => {
+        let data = {
+            MobileNo: mobileNo,
+        }
+        console.log('Mob' + JSON.stringify(data));
+        makeRequest(
+            `${APIConstant.BASE_URL}${APIConstant.PROFILE}?mobileNo=${mobileNo}`,
+            'get'
+        )
+            .then(response => {
+                console.log(JSON.stringify(response));
+                if (response.statusCode == 0) {
+                    Alert.alert('Oppss...', response.statusMessage);
+                } else {
+                    this.setState({
+                        name: response.responsedata.name,
+                        mobileNo: response.responsedata.mobileNo,
+                        email: response.responsedata.email,
+                    })
+                    console.log('Customer data get :' + JSON.stringify(this.state.name));
+                }
+            })
+            .catch(error => console.log('error : ' + error));
     }
 
     componentWillUnmount() {
@@ -134,10 +180,9 @@ export class OrderServiceScreen extends Component {
             this._onPressButton();
         }
         else if (this.state.PaymentMethod == 'Cash On Delivery')
-            alert("you selected Cash On Delivery") //send data to server
+        this._showToast("you selected Cash On Delivery") //send data to server
         else
-            alert("please select any payment method") //display msg to user
-
+        this._showToast("please select any payment method") //display msg to user
     }
 
     render() {
@@ -212,12 +257,11 @@ export class OrderServiceScreen extends Component {
                         <View style={{ margin: 5, padding: 5, }}>
                             <Text style={{ marginBottom: 10, fontSize: 20, fontWeight: 'bold' }}>Customer Details</Text>
                             <View style={{ flexDirection: 'row', width: '100%', borderBottomColor: 'lightgrey', borderBottomWidth: 1, }}>
-                                <View style={{ height: 100, marginTop: 5, }}>
+                                <View style={{ height: 75, marginTop: 5, }}>
                                     <View>
-                                        <Text style={{ color: 'grey', fontSize: 16 }}>Name</Text>
-                                        <Text style={{ color: 'grey', fontSize: 16, }}>Mobile No.</Text>
-                                        <Text style={{ color: 'grey', fontSize: 16, }}>Email</Text>
-                                        <Text style={{ color: 'grey', fontSize: 16, }}>Address</Text>
+                                        <Text style={{ color: 'grey', fontSize: 16 }}>Name : {this.state.name}</Text>
+                                        <Text style={{ color: 'grey', fontSize: 16, }}>Mobile No. : {this.state.mobileNo}</Text>
+                                        <Text style={{ color: 'grey', fontSize: 16, }}>Email :{this.state.email} </Text>
                                     </View>
                                 </View>
                             </View>

@@ -29,14 +29,15 @@ export class SettingScreen extends Component {
         this.setState({
             isLoginShow: !this.state.isLoginShow
         })
-        this.props.navigation.dispatch(
-            CommonActions.reset({
-                index: 1,
-                routes: [
-                    { name: 'HomeApp' },
-                ],
-            })
-        );
+        this.componentDidMount()
+        //this.props.navigation.dispatch(
+        //  CommonActions.reset({
+        //    index: 1,
+        //  routes: [
+        //    { name: 'HomeApp' },
+        //],
+        //})
+        // );
     }
 
     componentDidMount() {
@@ -79,7 +80,7 @@ export class SettingScreen extends Component {
                         email: response.responsedata.email,
                     })
                     console.log('profile data get setting :' + JSON.stringify(mobileNo));
-                    console.log('get image name :' + JSON.stringify(response.responsedata.avatar));
+                   // console.log('get image name :' + JSON.stringify(response.responsedata.avatar));
                 }
             })
             .catch(error => console.log('error : ' + error));
@@ -89,7 +90,7 @@ export class SettingScreen extends Component {
     render() {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#f0f2f0' }}>
-                { this.state.isLoginShow && <LoginModel />}
+                { this.state.isLoginShow && <LoginModel handleClickfunction={this.handleClick} />}
                 <View style={{ height: '100%', }}>
                     <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: 'black', }} >
                         <TouchableOpacity style={{ margin: 5, padding: 5, alignSelf: 'center' }}
@@ -102,7 +103,7 @@ export class SettingScreen extends Component {
                         <View style={{ margin: 5, padding: 5 }}>
                             {this.state.checktoken != null ?
                                 <View>
-                                    <View style={{ height: 95, width: '100%', backgroundColor: 'white', borderRadius:5, borderBottomColor: 'lightgrey', borderBottomWidth: 1 }}>
+                                    <View style={{ height: 95, width: '100%', backgroundColor: 'white', borderRadius: 5, borderBottomColor: 'lightgrey', borderBottomWidth: 1 }}>
                                         <View style={{ flexDirection: 'row', width: '100%', }}>
                                             <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', flex: 1, margin: 5, padding: 5 }}>
                                                 <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black', }}>{this.state.name}</Text>
@@ -180,15 +181,15 @@ export class SettingScreen extends Component {
                                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Refund Policy')} ><View style={{ flexDirection: 'row', padding: 3, margin: 3 }}><View style={{ width: 20 }}><Text style={{ marginTop: 3, marginLeft: 7 }}> • </Text></View><View><Text style={{ marginTop: 3, marginLeft: 15 }}>Refund Policy</Text></View></View></TouchableOpacity>
                                 {this.state.checktoken != null ?
                                     <TouchableOpacity
-                                        onPress={() => {
-                                            AsyncStorage.removeItem('accessToken').then(() => {
+                                        onPress={async () => {
+                                            const keys = ['accessToken', 'refreshToken', 'mobileNo']
+                                            await AsyncStorage.multiRemove(keys).then(() => {
                                                 console.log("Logout...");
                                                 ToastAndroid.show('Logout Successfully', ToastAndroid.SHORT)
                                                 this.setState({
                                                     checktoken: null
                                                 })
-                                                //  this.props.navigation.push('HomeApp');
-                                                // this.props.navigation
+
                                                 this.props.navigation.dispatch(
                                                     CommonActions.reset({
                                                         index: 1,
