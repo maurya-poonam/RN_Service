@@ -136,7 +136,7 @@ export class WalletScreen extends Component {
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1, backgroundColor: '#f0f2f0', }}>
-                    <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: 'black', }} >
+                    <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: '#04046c', }} >
                         <TouchableOpacity style={{ margin: 5, padding: 5, alignSelf: 'center' }}
                             onPress={() => this.props.navigation.goBack()}>
                             <Icon name="chevron-back" size={35} color="white" />
@@ -217,7 +217,7 @@ export class WalletScreen extends Component {
                             <View style={{ height: 55, width: '90%', backgroundColor: 'white', marginTop: 20, justifyContent: 'center', alignSelf: 'center' }}>
                                 <View style={{ flexDirection: 'row', }}>
                                     <TouchableOpacity onPress={() => this._onPressButton()}
-                                        style={{ flex: 1, width: '100%', height: 50, borderRadius: 5, borderColor: 'orange', borderWidth: 1, marginTop: 10, justifyContent: 'center', alignSelf: 'center' }}>
+                                        style={{ flex: 1, width: '100%', height: 50, borderRadius: 5, borderColor: 'rgb(255, 136, 0)', borderWidth: 1, marginTop: 10, justifyContent: 'center', alignSelf: 'center' }}>
                                         <Text style={{ textAlign: 'center', color: 'black', fontSize: 18, fontWeight: 'bold', }}>Add Money</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -232,7 +232,7 @@ export class WalletScreen extends Component {
                                                 Addamount: item.amount
                                             })
                                         }}>
-                                            <View style={{ height: 40, width: 90, borderRadius: 5, backgroundColor: 'white', borderWidth: 1, borderColor: 'orange' }}>
+                                            <View style={{ height: 40, width: 90, borderRadius: 5, backgroundColor: 'white', borderWidth: 1, borderColor:'rgb(255, 136, 0)' }}>
                                                 <Text style={{ fontSize: 16, marginTop: 10, justifyContent: 'center', alignSelf: 'center' }}>₹ {item.amount}</Text>
                                             </View>
                                         </TouchableOpacity>
@@ -262,7 +262,7 @@ export class WalletScreen extends Component {
                                             borderColor: 'lightgrey', borderWidth: 1, justifyContent: 'center', alignSelf: 'center', width: '40%'
                                         }} />
                                         <View style={{ justifyContent: 'center', alignSelf: 'center', width:'20%', }}>
-                                            <Text style={{ fontSize: 16, marginHorizontal: 10, textAlign:'center' }}>Refer via</Text>
+                                            <Text style={{ fontSize: 16, marginHorizontal: 10, textAlign:'center', }}>Refer via</Text>
                                         </View>
                                         <View style={{
                                             borderColor: 'lightgrey', borderWidth: 1, justifyContent: 'center', alignSelf: 'center', width: '40%'

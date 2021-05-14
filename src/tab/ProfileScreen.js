@@ -168,7 +168,7 @@ export class ProfileScreen extends Component {
         this.setState({
             isLoginShow: !this.state.isLoginShow
         })
-      //  this.componentDidMount()
+        //  this.componentDidMount()
         this.props.navigation.dispatch(
             CommonActions.reset({
                 index: 1,
@@ -381,251 +381,303 @@ export class ProfileScreen extends Component {
 
         //console.log("city "+this.state.AllStateCheck[0].name)
         return (
-            <View style={{ flex: 1, }}>
-                { this.state.isLoginShow && <LoginModel />}
-                {this.state.checktoken != null ?
-                    <View style={{ flex: 1 }}>
-                        <View style={{
-                            position: 'absolute',
-                            right: - width * 0.5,
-                            top: - width * 1.4,
-                            height: width * 2,
-                            width: width * 2,
-                            borderBottomLeftRadius: width,
-                            borderBottomRightRadius: width,
-                            backgroundColor: 'black',
-                            // elevation: 20,
-                        }}>
-                        </View>
-                        {/* {this.state.checktoken != null ? */}
+            // <View style={{ flex: 1, }}>
+            //     { this.state.isLoginShow && <LoginModel />}
+            //     {this.state.checktoken != null ?
+            //         <View style={{ flex: 1 }}>
+            //             <View style={{
+            //                 position: 'absolute',
+            //                 right: - width * 0.5,
+            //                 top: - width * 1.4,
+            //                 height: width * 2,
+            //                 width: width * 2,
+            //                 borderBottomLeftRadius: width,
+            //                 borderBottomRightRadius: width,
+            //                 backgroundColor: 'black',
+            //                 // elevation: 20,
+            //             }}>
+            //             </View>
+            //             {/* {this.state.checktoken != null ? */}
 
-                        {/* :
-                            <TouchableOpacity style={{ flex: 1, width: '50%', height: 50, backgroundColor: 'green', justifyContent: 'center', alignSelf: 'center' }}
-                                onPress={() => {
-                                    this.handleClick()
-                                }}
-                            >
-                                <Text style={{ textAlign: 'center', color: 'white', }}>Login</Text>
-                            </TouchableOpacity>
-                        } */}
-                        <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 28, justifyContent: 'flex-start', alignSelf: 'flex-start', marginVertical: 25, paddingVertical: 25, margin: 10 }}>Edit Profile</Text>
-                        <View style={{ margin: 10, backgroundColor: 'white', height: '65%', width: '90%', borderRadius: 20, alignSelf: 'center', bottom: '3%', elevation: 15 }}>
+            //             {/* :
+            //                 <TouchableOpacity style={{ flex: 1, width: '50%', height: 50, backgroundColor: 'green', justifyContent: 'center', alignSelf: 'center' }}
+            //                     onPress={() => {
+            //                         this.handleClick()
+            //                     }}
+            //                 >
+            //                     <Text style={{ textAlign: 'center', color: 'white', }}>Login</Text>
+            //                 </TouchableOpacity>
+            //             } */}
+            //             <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 28, justifyContent: 'flex-start', alignSelf: 'flex-start', marginVertical: 25, paddingVertical: 25, margin: 10 }}>Edit Profile</Text>
+            //             <View style={{ margin: 10, backgroundColor: 'white', height: '65%', width: '90%', borderRadius: 20, alignSelf: 'center', bottom: '3%', elevation: 15 }}>
 
-                            <Image source={{ uri: this.state.ImageSource }} style={{
-                                width: 150,
-                                height: 150,
-                                borderRadius: 150 / 2,
-                                overflow: "hidden",
-                                borderWidth: 0.8,
-                                justifyContent: 'center',
-                                alignSelf: 'center',
-                                borderColor: 'grey',
-                                marginTop: -75
-                            }} />
+            //                 <Image source={{ uri: this.state.ImageSource }} style={{
+            //                     width: 150,
+            //                     height: 150,
+            //                     borderRadius: 150 / 2,
+            //                     overflow: "hidden",
+            //                     borderWidth: 0.8,
+            //                     justifyContent: 'center',
+            //                     alignSelf: 'center',
+            //                     borderColor: 'grey',
+            //                     marginTop: -75
+            //                 }} />
 
-                            <TouchableOpacity onPress={() => this._ProfileImagePicker()} style={{ justifyContent: 'center', alignSelf: 'center', bottom: 25, left: 30 }}>
-                                <Icon name="camera" size={40} color={'darkgrey'} />
-                            </TouchableOpacity>
-                            {/* <View style={{ borderWidth: 0.6, borderColor: 'grey', width: '90%', margin: 10, justifyContent: 'center', alignSelf: 'center' }}></View> */}
-                            <ScrollView>
-                                <View style={{ alignSelf: 'center', justifyContent: 'center', width: fixWidth }}>
-                                    <TextInput
-                                        containerWidth={fixWidth}
-                                        editable={false}
-                                        leftIcon="mobile-phone"
-                                        leftIconType="awesome"
-                                        leftIconSize={20}
-                                        leftIconColor='black'
-                                        keyboardType="numeric"
-                                        labelColor="black"
-                                        label="Enter mobile number"
-                                        underlineColor="grey"
-                                        underlineActiveColor="black"
-                                        labelActiveColor="black"
-                                        value={this.state.mobileNo}
-                                        refrance={(refrance) => {
-                                            this.input = refrance;
-                                        }}
-                                        onChangeText={(mobileNo) => this.setState({ mobileNo: mobileNo })}
-                                        onEndEditing={() => this.setState({ textDisable: false })}
+            //                 <TouchableOpacity onPress={() => this._ProfileImagePicker()} style={{ justifyContent: 'center', alignSelf: 'center', bottom: 25, left: 30 }}>
+            //                     <Icon name="camera" size={40} color={'darkgrey'} />
+            //                 </TouchableOpacity>
+            //                 {/* <View style={{ borderWidth: 0.6, borderColor: 'grey', width: '90%', margin: 10, justifyContent: 'center', alignSelf: 'center' }}></View> */}
+            //                 <ScrollView>
+            //                     <View style={{ alignSelf: 'center', justifyContent: 'center', width: fixWidth }}>
+            //                         <TextInput
+            //                             containerWidth={fixWidth}
+            //                             editable={false}
+            //                             leftIcon="mobile-phone"
+            //                             leftIconType="awesome"
+            //                             leftIconSize={20}
+            //                             leftIconColor='black'
+            //                             keyboardType="numeric"
+            //                             labelColor="black"
+            //                             label="Enter mobile number"
+            //                             underlineColor="grey"
+            //                             underlineActiveColor="black"
+            //                             labelActiveColor="black"
+            //                             value={this.state.mobileNo}
+            //                             refrance={(refrance) => {
+            //                                 this.input = refrance;
+            //                             }}
+            //                             onChangeText={(mobileNo) => this.setState({ mobileNo: mobileNo })}
+            //                             onEndEditing={() => this.setState({ textDisable: false })}
 
-                                    />
-                                    <TextInput
-                                        containerWidth={fixWidth}
-                                        leftIcon="person-circle"
-                                        leftIconType="ion"
-                                        leftIconSize={20}
-                                        leftIconColor='black'
-                                        labelColor="black"
-                                        label="Enter your name"
-                                        underlineColor="grey"
-                                        underlineActiveColor="black"
-                                        labelActiveColor="black"
-                                        value={this.state.name}
-                                        refrance={(refrance) => {
-                                            this.input = refrance;
-                                        }}
-                                        onChangeText={(name) => this.setState({ name: name })}
-                                        error={this.state.nameError}
-                                    />
-                                    <TextInput
-                                        containerWidth={fixWidth}
-                                        leftIcon="mail"
-                                        leftIconType="oct"
-                                        leftIconSize={20}
-                                        leftIconColor='black'
-                                        labelColor="black"
-                                        label="Enter your email"
-                                        underlineColor="grey"
-                                        underlineActiveColor="black"
-                                        labelActiveColor="black"
-                                        value={this.state.email}
-                                        refrance={(refrance) => {
-                                            this.input = refrance;
-                                        }}
-                                        onChangeText={(email) => this.setState({ email })}
-                                        error={this.state.emailError}
-                                    />
-                                    <View style={{ flexDirection: 'row', marginTop: 5, width: fixWidth, borderBottomColor: 'grey', borderBottomWidth: 1 }}>
-                                        <MaterialCommunityIcons name="city-variant" size={20} style={{ marginTop: 10, justifyContent: 'flex-start', alignSelf: 'flex-start', }} />
-                                        <SelectPicker
-                                            onValueChange={(state) => {
-                                                this.setState({ state: state })
-                                            }}
-                                            placeholder={this.state.state || 'Select your State'}
-                                            placeholderStyle={{ color: 'black' }}
-                                        // selected={this.state.state}
-                                        // selected={this.state.state!=null?this.state.state.toString():""}
-                                        >
-                                            {Object.values(this.state.allState).map(({ label, index, value }) => (
-                                                <SelectPicker.Item selected={this.state.state == index} label={label} value={label} key={value}
-                                                // error={this.state.stateError}
-                                                />
+            //                         />
+            //                         <TextInput
+            //                             containerWidth={fixWidth}
+            //                             leftIcon="person-circle"
+            //                             leftIconType="ion"
+            //                             leftIconSize={20}
+            //                             leftIconColor='black'
+            //                             labelColor="black"
+            //                             label="Enter your name"
+            //                             underlineColor="grey"
+            //                             underlineActiveColor="black"
+            //                             labelActiveColor="black"
+            //                             value={this.state.name}
+            //                             refrance={(refrance) => {
+            //                                 this.input = refrance;
+            //                             }}
+            //                             onChangeText={(name) => this.setState({ name: name })}
+            //                             error={this.state.nameError}
+            //                         />
+            //                         <TextInput
+            //                             containerWidth={fixWidth}
+            //                             leftIcon="mail"
+            //                             leftIconType="oct"
+            //                             leftIconSize={20}
+            //                             leftIconColor='black'
+            //                             labelColor="black"
+            //                             label="Enter your email"
+            //                             underlineColor="grey"
+            //                             underlineActiveColor="black"
+            //                             labelActiveColor="black"
+            //                             value={this.state.email}
+            //                             refrance={(refrance) => {
+            //                                 this.input = refrance;
+            //                             }}
+            //                             onChangeText={(email) => this.setState({ email })}
+            //                             error={this.state.emailError}
+            //                         />
+            //                         <View style={{ flexDirection: 'row', marginTop: 5, width: fixWidth, borderBottomColor: 'grey', borderBottomWidth: 1 }}>
+            //                             <MaterialCommunityIcons name="city-variant" size={20} style={{ marginTop: 10, justifyContent: 'flex-start', alignSelf: 'flex-start', }} />
+            //                             <SelectPicker
+            //                                 onValueChange={(state) => {
+            //                                     this.setState({ state: state })
+            //                                 }}
+            //                                 placeholder={this.state.state || 'Select your State'}
+            //                                 placeholderStyle={{ color: 'black' }}
+            //                             // selected={this.state.state}
+            //                             // selected={this.state.state!=null?this.state.state.toString():""}
+            //                             >
+            //                                 {Object.values(this.state.allState).map(({ label, index, value }) => (
+            //                                     <SelectPicker.Item selected={this.state.state == index} label={label} value={label} key={value}
+            //                                     // error={this.state.stateError}
+            //                                     />
 
-                                            ))}
-                                        </SelectPicker>
-                                    </View>
+            //                                 ))}
+            //                             </SelectPicker>
+            //                         </View>
 
-                                    {tampvalue && <View style={{ flexDirection: 'row', marginTop: 5, borderBottomColor: 'grey', borderBottomWidth: 1, width: fixWidth }}>
-                                        <MaterialCommunityIcons name="city" size={20} style={{ marginTop: 10, justifyContent: 'flex-start', alignSelf: 'flex-start', }} />
-                                        <SelectPicker
-                                            onValueChange={(city) => {
-                                                this.setState({ city: city })
-                                            }}
-                                            placeholder={this.state.city || 'Select your city'}
-                                            placeholderStyle={{ color: 'black' }}
-                                        // selected={this.state.city}
-                                        >
-                                            {Object.values(tampvalue).map(({ name, index, id }) => (
-                                                <SelectPicker.Item selected={this.state.city == index} label={name} value={name} key={id} />
-                                            ))}
-                                        </SelectPicker>
-                                    </View>}
-                                    <View style={{ marginTop: 10, borderBottomWidth: 1, borderBottomColor: 'grey', width: fixWidth, }}>
-                                        <RadioButton.Group onValueChange={(gender, value) =>
-                                            this.setState({ gender: gender })}
-                                            value={this.state.gender}
-                                        >
-                                            {/* <Text>{this.state.genderError}</Text> */}
-                                            <View style={{ flexDirection: 'row' }}>
-                                                <MaterialCommunityIcons name='face' size={20} style={{ marginTop: 8 }} />
-                                                {/* <Text style={{ marginTop: 8, margin: 5 }}>Gender</Text> */}
-                                                <RadioButton value="male" />
-                                                <Text style={{ marginTop: 8 }}>Male</Text>
-                                                <RadioButton value="female" />
-                                                <Text style={{ marginTop: 8 }}>Female</Text>
-                                            </View>
-                                        </RadioButton.Group>
-                                    </View>
-                                    <View style={{ flexDirection: 'row', borderBottomColor: 'grey', borderBottomWidth: 1, width: fixWidth, height: 62 }}>
-                                        <View style={{ width: '20%', marginTop: 20, marginLeft: 4, }}>
-                                            <Text style={{ fontSize: 18, }}>D.O.B</Text>
-                                        </View>
-                                        <View style={{ width: '80%', }}>
-                                            <DatePicker
-                                                date={this.state.dateOfBirth}
-                                                mode="date"
-                                                placeholder={"Select Birth Date"}
-                                                format="YYYY-MM-DD"
-                                                maxDate={new Date()}
-                                                // minDate={new Date()}
-                                                confirmBtnText="Confirm"
-                                                cancelBtnText="Cancel"
-                                                showIcon={true}
-                                                iconComponent={<MaterialIcons name={'date-range'} style={{ fontSize: 22, color: 'grey', marginRight: 10 }} />}
-                                                customStyles={{
-                                                    placeholderText: {
-                                                        fontSize: 15,
-                                                        color: 'black'
-                                                    },
-                                                    dateText: {
-                                                        fontSize: 17,
-                                                        color: 'black'
-                                                    },
-                                                    // dateIcon: {
-                                                    //     position: 'absolute',
-                                                    //     left: 0,
-                                                    //     top: 4,
-                                                    //     marginLeft: 0
-                                                    // },
-                                                    // dateInput: {
-                                                    //     marginLeft: 36
-                                                    // },
-                                                }}
-                                                onDateChange={(dateOfBirth) => this.setState({ dateOfBirth: dateOfBirth })}
-                                                style={{ width: '70%', marginTop: 15 }}
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-                                <View style={{ width: '100%', height: 50 }}></View>
-                            </ScrollView>
-                        </View>
-                        <View style={{ flexDirection: 'row', bottom: 5, width: '100%', paddingHorizontal: 15 }}>
-                            <View style={{
-                                backgroundColor: 'white',
-                                borderColor: 'lightgrey',
-                                borderWidth: 1,
-                                alignSelf: 'flex-start',
-                                justifyContent: 'flex-start',
-                                height: 50,
-                                width: '20%',
-                                // marginHorizontal:35,
-                                margin: 10,
-                                padding: 5,
-                                borderRadius: 10,
+            //                         {tampvalue && <View style={{ flexDirection: 'row', marginTop: 5, borderBottomColor: 'grey', borderBottomWidth: 1, width: fixWidth }}>
+            //                             <MaterialCommunityIcons name="city" size={20} style={{ marginTop: 10, justifyContent: 'flex-start', alignSelf: 'flex-start', }} />
+            //                             <SelectPicker
+            //                                 onValueChange={(city) => {
+            //                                     this.setState({ city: city })
+            //                                 }}
+            //                                 placeholder={this.state.city || 'Select your city'}
+            //                                 placeholderStyle={{ color: 'black' }}
+            //                             // selected={this.state.city}
+            //                             >
+            //                                 {Object.values(tampvalue).map(({ name, index, id }) => (
+            //                                     <SelectPicker.Item selected={this.state.city == index} label={name} value={name} key={id} />
+            //                                 ))}
+            //                             </SelectPicker>
+            //                         </View>}
+            //                         <View style={{ marginTop: 10, borderBottomWidth: 1, borderBottomColor: 'grey', width: fixWidth, }}>
+            //                             <RadioButton.Group onValueChange={(gender, value) =>
+            //                                 this.setState({ gender: gender })}
+            //                                 value={this.state.gender}
+            //                             >
+            //                                 {/* <Text>{this.state.genderError}</Text> */}
+            //                                 <View style={{ flexDirection: 'row' }}>
+            //                                     <MaterialCommunityIcons name='face' size={20} style={{ marginTop: 8 }} />
+            //                                     {/* <Text style={{ marginTop: 8, margin: 5 }}>Gender</Text> */}
+            //                                     <RadioButton value="male" />
+            //                                     <Text style={{ marginTop: 8 }}>Male</Text>
+            //                                     <RadioButton value="female" />
+            //                                     <Text style={{ marginTop: 8 }}>Female</Text>
+            //                                 </View>
+            //                             </RadioButton.Group>
+            //                         </View>
+            //                         <View style={{ flexDirection: 'row', borderBottomColor: 'grey', borderBottomWidth: 1, width: fixWidth, height: 62 }}>
+            //                             <View style={{ width: '20%', marginTop: 20, marginLeft: 4, }}>
+            //                                 <Text style={{ fontSize: 18, }}>D.O.B</Text>
+            //                             </View>
+            //                             <View style={{ width: '80%', }}>
+            //                                 <DatePicker
+            //                                     date={this.state.dateOfBirth}
+            //                                     mode="date"
+            //                                     placeholder={"Select Birth Date"}
+            //                                     format="YYYY-MM-DD"
+            //                                     maxDate={new Date()}
+            //                                     // minDate={new Date()}
+            //                                     confirmBtnText="Confirm"
+            //                                     cancelBtnText="Cancel"
+            //                                     showIcon={true}
+            //                                     iconComponent={<MaterialIcons name={'date-range'} style={{ fontSize: 22, color: 'grey', marginRight: 10 }} />}
+            //                                     customStyles={{
+            //                                         placeholderText: {
+            //                                             fontSize: 15,
+            //                                             color: 'black'
+            //                                         },
+            //                                         dateText: {
+            //                                             fontSize: 17,
+            //                                             color: 'black'
+            //                                         },
+            //                                         // dateIcon: {
+            //                                         //     position: 'absolute',
+            //                                         //     left: 0,
+            //                                         //     top: 4,
+            //                                         //     marginLeft: 0
+            //                                         // },
+            //                                         // dateInput: {
+            //                                         //     marginLeft: 36
+            //                                         // },
+            //                                     }}
+            //                                     onDateChange={(dateOfBirth) => this.setState({ dateOfBirth: dateOfBirth })}
+            //                                     style={{ width: '70%', marginTop: 15 }}
+            //                                 />
+            //                             </View>
+            //                         </View>
+            //                     </View>
+            //                     <View style={{ width: '100%', height: 50 }}></View>
+            //                 </ScrollView>
+            //             </View>
+            //             <View style={{ flexDirection: 'row', bottom: 5, width: '100%', paddingHorizontal: 15 }}>
+            //                 <View style={{
+            //                     backgroundColor: 'white',
+            //                     borderColor: 'lightgrey',
+            //                     borderWidth: 1,
+            //                     alignSelf: 'flex-start',
+            //                     justifyContent: 'flex-start',
+            //                     height: 50,
+            //                     width: '20%',
+            //                     // marginHorizontal:35,
+            //                     margin: 10,
+            //                     padding: 5,
+            //                     borderRadius: 10,
 
-                            }}>
-                                <TouchableOpacity
-                                    onPress={() => this.props.navigation.goBack()}>
-                                    <Icon name='arrow-back' size={22} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 7 }} />
-                                </TouchableOpacity>
-                            </View>
-                            <TouchableOpacity onPress={this._UpdateProfileDatavalidation}
-                                style={{
-                                    backgroundColor: '#4287f5',
-                                    alignSelf: 'flex-end',
-                                    justifyContent: 'flex-end',
-                                    height: 50,
-                                    width: '70%',
-                                    margin: 10,
-                                    padding: 5,
-                                    borderRadius: 10,
-                                }}>
-                                <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 22, color: 'white', bottom: 5 }}>SAVE</Text>
-                            </TouchableOpacity>
-                        </View>
+            //                 }}>
+            //                     <TouchableOpacity
+            //                         onPress={() => this.props.navigation.goBack()}>
+            //                         <Icon name='arrow-back' size={22} style={{ justifyContent: 'center', alignSelf: 'center', marginTop: 7 }} />
+            //                     </TouchableOpacity>
+            //                 </View>
+            //                 <TouchableOpacity onPress={this._UpdateProfileDatavalidation}
+            //                     style={{
+            //                         backgroundColor: '#4287f5',
+            //                         alignSelf: 'flex-end',
+            //                         justifyContent: 'flex-end',
+            //                         height: 50,
+            //                         width: '70%',
+            //                         margin: 10,
+            //                         padding: 5,
+            //                         borderRadius: 10,
+            //                     }}>
+            //                     <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 22, color: 'white', bottom: 5 }}>SAVE</Text>
+            //                 </TouchableOpacity>
+            //             </View>
+            //         </View>
+            //         :
+            //         <View style={{ flex: 1, backgroundColor: '#f0f2f0', height: '100%', width: '100%' }}>
+            //             <TouchableOpacity
+            //                 onPress={() => {
+            //                     this.handleClick()
+            //                 }}>
+            //                 <Text style={{ textAlign: 'center', color: 'black', marginTop: 10 }}>Login</Text>
+            //             </TouchableOpacity>
+            //         </View>
+            //     }
+            // </View>
+
+            <View style={{ flex: 1 }}>
+                <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: '#04046c', }} >
+                    <TouchableOpacity style={{ margin: 5, padding: 5, alignSelf: 'center' }}
+                        onPress={() => this.props.navigation.goBack()}>
+                        <Icon name="chevron-back" size={35} color="white" />
+                    </TouchableOpacity>
+                    <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', textAlign: 'center', margin: 5, padding: 5, justifyContent: 'center', alignSelf: 'center' }}>Booking</Text>
+                </View>
+                <View style={{ justifyContent: 'center', alignSelf: 'center', }}>
+                    <Image source={{ uri: this.state.ImageSource }} style={{
+                        width: 100,
+                        height: 100,
+                        borderRadius: 100 / 2,
+                        overflow: "hidden",
+                        borderWidth: 0.8,
+                        justifyContent: 'center',
+                        alignSelf: 'center',
+                        borderColor: 'grey',
+                        marginTop: 20
+                    }} />
+                </View>
+                <TouchableOpacity onPress={() => this._ProfileImagePicker()} style={{ justifyContent: 'center', alignSelf: 'center', bottom: 30, left: 30 }}>
+                    <Icon name="camera" size={40} color={'darkgrey'} />
+                </TouchableOpacity>
+
+                <View style={{ justifyContent: 'center', alignSelf: 'center', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '80%', height: 60, borderRadius: 5 }} >
+                    <View style={{ padding: 10, bottom: 10 }}>
+                        <TextInput
+                            containerWidth={fixWidth}
+                            editable={false}
+                            // leftIcon="mobile-phone"
+                            // leftIconType="awesome"
+                            // leftIconSize={20}
+                            // leftIconColor='black'
+                            noUnderline={true}
+                            keyboardType="numeric"
+                            //labelColor="black"
+                            //label="Enter mobile number"
+                            underlineColor="grey"
+                            underlineActiveColor="black"
+                            labelActiveColor="black"
+                            value={this.state.mobileNo}
+                            refrance={(refrance) => {
+                                this.input = refrance;
+                            }}
+                            onChangeText={(mobileNo) => this.setState({ mobileNo: mobileNo })}
+                            onEndEditing={() => this.setState({ textDisable: false })}
+                        />
                     </View>
-                    :
-                    <View style={{ flex: 1, backgroundColor: '#f0f2f0', height: '100%', width: '100%' }}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                this.handleClick()
-                            }}>
-                            <Text style={{ textAlign: 'center', color: 'black', marginTop: 10 }}>Login</Text>
-                        </TouchableOpacity>
-                    </View>
-                }
+                </View>
             </View>
         );
     }

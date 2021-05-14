@@ -11,6 +11,7 @@ import TextInput from 'react-native-textinput-with-icons';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { makeRequest } from '../api/apiCall';
 import APIConstant from '../api/apiConstant';
+var Spinner = require('react-native-spinkit');
 
 export class LoadingModel extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ export class LoadingModel extends Component {
             modalVisible: true,
         };
     }
-    
+
     render() {
         const { modalVisible } = this.state;
         return (
@@ -31,14 +32,15 @@ export class LoadingModel extends Component {
                     onRequestClose={() => {
                         // this.handleClickfunction2()
                         // BackHandler.exitApp();
-                      }}>
+                    }}>
                     <SafeAreaView style={{ flex: 1 }}>
-                    <View style={{ backgroundColor: 'orange', width: '100%', height: '100%', top: 0, bottom: 0, left: 0, right: 0, position: 'absolute', }}>
-                   {/* <Text> {this.state.timer} </Text> */}
-                   <Image source={require('../../res/logo.png')} resizeMode='center'
-                       style={{ flex: 1, width: 200, height: 200, justifyContent: 'center', alignSelf: 'center', }}
-                   />
-               </View>
+                        <View style={{ backgroundColor: 'orange', width: '100%', height: '100%', top: 0, bottom: 0, left: 0, right: 0, position: 'absolute', }}>
+                            {/* <Text> {this.state.timer} </Text> */}
+                            <Image source={require('../../res/logo6.png')} resizeMode='center'
+                                style={{ width: '70%', height: '75%', justifyContent: 'center', alignSelf: 'center',}}
+                            />
+                            <Spinner style={{ position: 'absolute', justifyContent:'center',alignSelf:'center',alignItems: 'center', height: '100%', width: '20%', marginBottom: 30 }} isVisible={true} size={30} type={'Circle'} color={'#0c389f'} />
+                        </View>
                     </SafeAreaView>
                 </Modal>
             </View>
@@ -51,68 +53,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         justifyContent: "center",
         alignItems: "center",
-        // marginTop: 22,
-
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // backgroundColor: '#F5FCFF',
-    },
-    titleText: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        top: '10%',
-    },
-    pickerTitleStyle: {
-        justifyContent: 'center',
-        flexDirection: 'row',
-        alignSelf: 'center',
-        fontWeight: 'bold',
-        flex: 1,
-        marginLeft: 10,
-        fontSize: 16,
-        color: '#000',
-    },
-    pickerStyle: {
-        // top: 1,
-        padding: 10,
-        margin: 10,
-        //borderWidth: 1,
-        borderColor: 'grey',
-        justifyContent: 'space-between',
-        alignSelf: 'center',
-        width: '60%',
-        // backgroundColor:'lime'
-        borderBottomWidth: 1.3,
-
-
-    },
-    selectedCountryTextStyle: {
-        paddingLeft: 5,
-        paddingRight: 5,
-        color: '#000',
-        textAlign: 'right',
-    },
-    countryNameTextStyle: {
-        paddingLeft: 10,
-        color: '#000',
-        textAlign: 'right',
-    },
-    searchBarStyle: {
-        flex: 1,
-        justifyContent: 'center',
-        flexDirection: 'row',
-        marginLeft: 8,
-        marginRight: 10,
-    },
+    }
 
 });
 

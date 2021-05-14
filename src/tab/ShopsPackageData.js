@@ -154,7 +154,7 @@ export class ShopsPackageData extends Component {
             <View style={{ height: '100%', backgroundColor: '#f0f2f0', }}>
                 {this.state.isLoginShow && <LoginModel handleClickfunction={this.handleClick} />}
                 <ScrollView>
-                    <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: 'black', }} >
+                    <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: '#04046c', }} >
                         <TouchableOpacity style={{ margin: 5, padding: 5, alignSelf: 'center' }}
                             onPress={() => this.props.navigation.goBack()}>
                             <Icon name="chevron-back" size={35} color="white" />
@@ -168,7 +168,10 @@ export class ShopsPackageData extends Component {
                     <View style={{ backgroundColor: 'white', height: '100%', margin: 10, marginRight: 10, marginLeft: 10, }}>
                         <FlatList
                             data={this.state.ShopsPackageDetail}
-                            ListEmptyComponent={<Text style={{ justifyContent: 'center', alignSelf: 'center', }}>No Data</Text>}
+                            ListEmptyComponent={
+                                <View style={{ justifyContent: 'center', flex: 1, alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: '50%' }}>
+                                    <Image source={require('../../res/nodata.png')} resizeMode={'center'} style={{ width: 150, height: 150, justifyContent: 'center', alignSelf: 'center', }} />
+                                </View>}
                             renderItem={({ item }) => (
                                 <View style={{
                                     flex: 1,
@@ -217,7 +220,7 @@ export class ShopsPackageData extends Component {
                                                 <View>
                                                 </View>
                                             </View>
-                                        </View> 
+                                        </View>
 
                                         <View style={{ borderTopWidth: 0.8, borderTopColor: 'grey', marginTop: 10, width: '100%' }}>
                                             <View style={{ flexDirection: 'row', marginTop: 10 }}>

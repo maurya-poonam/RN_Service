@@ -1,6 +1,6 @@
 module.exports = {
   //API Constant
-  BASE_URL: 'http://192.168.0.26/MobileApi/',//'http://bluetimohost.com/MobileApi/',
+  BASE_URL: 'https://bluetimo.suvyaweb.com/MobileApi/',//'http://bluetimohost.com/MobileApi/',
   LOGIN: 'Userprofile/Login',
   SIGNUP: 'Userprofile/Register',
   SERVICES:'Services',

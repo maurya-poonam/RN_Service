@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, FlatList, ToastAndroid, AsyncStorage, Image, ScrollView, Dimensions } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList, ToastAndroid, AsyncStorage, Image, ScrollView, Dimensions, Modal } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Modal from 'react-native-modal';
+//import Modal from 'react-native-modal';
 import TextInput from 'react-native-textinput-with-icons';
 import SelectPicker from 'react-native-form-select-picker'
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
 const { width } = Dimensions.get('window')
 var fixWidth = width / 1.7
 
@@ -185,7 +186,7 @@ export class AddressBookScreen extends Component {
 
         return (
             <View style={{ backgroundColor: '#f0f2f0', }}>
-                <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: 'black', }} >
+                <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: '#04046c', }} >
                     <TouchableOpacity style={{ margin: 5, padding: 5, alignSelf: 'center' }}
                         onPress={() => this.props.navigation.goBack()}>
                         <Icon name="chevron-back" size={35} color="white" />
@@ -193,7 +194,7 @@ export class AddressBookScreen extends Component {
                     <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold', textAlign: 'center', margin: 5, padding: 5, justifyContent: 'center', alignSelf: 'center' }}>Address</Text>
                 </View>
                 <ScrollView>
-                    <View style={{ height: 60,backgroundColor: 'white', }}>
+                    <View style={{ height: 60, backgroundColor: 'white', }}>
                         <TouchableOpacity
                             onPress={() => this.setModalVisible(true)}>
                             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignSelf: 'flex-start', marginLeft: 10, marginTop: 15, }}>
@@ -224,112 +225,125 @@ export class AddressBookScreen extends Component {
                     </View> */}
                     <View style={styles.centeredView}>
                         <Modal
-                            animationType='silde'
+                            // animationType='fade'
                             swipeDirection="down"
                             transparent={false}
                             visible={modalVisible}
                             onRequestClose={() => {
                                 this.setModalVisible(!modalVisible);
-                            }}>
-                            <View style={styles.centeredView}>
+                            }}
+                        >
+                            <View style={{ flex: 1 }}>
+                                <TouchableOpacity onPress={() => { this.setModalVisible(false) }} style={{ alignSelf: 'flex-end', justifyContent: 'flex-end', marginTop: '8%', marginRight: 20 }}>
+                                    <Entypo name='circle-with-cross' size={25} color={'rgb(255, 136, 0)'} />
+                                </TouchableOpacity>
+                                <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 24, fontWeight: 'bold', }}>Address Details</Text>
                                 <View style={styles.modalView}>
-                                    <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 24, marginBottom: 20, fontWeight: 'bold' }}>Address Detail</Text>
-                                    <Text style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', fontSize: 16, marginBottom: 5 }} >Type of address</Text>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => this.setState({Addtype:1 })} style={{ flexDirection: 'row', margin: 5, padding: 5, width: 100, height: 30, borderColor: this.state.Addtype == 1 ? 'black' : 'lightgrey', borderWidth: 1, borderRadius: 50, justifyContent: 'center', alignSelf: 'center' }}><Icon name='home' size={16} /><Text style={{ marginLeft: 8, marginTop: 0 }}>Home</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.setState({ Addtype:2})} style={{ flexDirection: 'row', margin: 5, padding: 5, width: 100, height: 30, borderColor: this.state.Addtype == 1 ? 'lightgrey' : 'black', borderWidth: 1, borderRadius: 50, justifyContent: 'center', alignSelf: 'center' }}><FontAwesome5 name='building' size={16} /><Text style={{ marginLeft: 8, marginTop: 0 }}>Work</Text></TouchableOpacity>
+                                    <Text style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', fontSize: 16, marginTop: 10, left: 3, marginBottom: 5 }} >Type of address</Text>
+                                    <View style={{ flexDirection: 'row', right: 5 }}>
+                                        <TouchableOpacity onPress={() => this.setState({ Addtype: 1 })} style={{ flexDirection: 'row', margin: 5, padding: 5, width: 100, height: 30, borderColor: this.state.Addtype == 1 ? 'rgb(255, 136, 0)' : 'black', borderWidth: 1, borderRadius: 50, justifyContent: 'center', alignSelf: 'center' }}><Icon name='home' size={16} style={{ color: this.state.Addtype == 1 ? 'rgb(255, 136, 0)' : 'black', }} /><Text style={{ marginLeft: 8, marginTop: 0 }}>Home</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.setState({ Addtype: 2 })} style={{ flexDirection: 'row', margin: 5, padding: 5, width: 100, height: 30, borderColor: this.state.Addtype == 1 ? 'black' : 'rgb(255, 136, 0)', borderWidth: 1, borderRadius: 50, justifyContent: 'center', alignSelf: 'center' }}><FontAwesome5 name='building' size={16} style={{ color: this.state.Addtype == 1 ? 'black' : 'rgb(255, 136, 0)', }} /><Text style={{ marginLeft: 8, marginTop: 0 }}>Work</Text></TouchableOpacity>
                                     </View>
                                     <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '49%', height: 60, borderRadius: 5 }} >
-                                        <TextInput
-                                            //  containerWidth={300 / 2}
-                                            noUnderline={true}
-                                            labelColor={'black'}
-                                            keyboardType="numeric"
-                                            label="   Pincode"
-                                            underlineColor={'grey'}
-                                            multiline={true}
-                                            underlineActiveColor={'grey'}
-                                            labelActiveColor={'grey'}
-                                            value={this.state.pincode}
-                                            refrance={(refrance) => {
-                                                this.input = refrance;
-                                            }}
-
-                                            onChangeText={(text) => this.setState({ pincode: text })}
-                                        />
-                                    </View>
-                                    {/* <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'lightgrey', marginTop: 10, width: 160, height: 60 }}> */}
-                                    <View style={{ flexDirection: 'row', }}>
-                                        <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '49%', height: 60, borderRadius: 5 }}>
-                                            <SelectPicker
-                                                //  style={{marginRight:10}}
-                                                onValueChange={(state) => {
-                                                    this.setState({ selectstate: state })
-                                                }}
-                                                placeholder={'   State'}
-                                                placeholderStyle={{ color: 'black', right: 10, marginTop: 12 }}
-                                            // selected={this.state.state}
-                                            >
-                                                {Object.values(this.state.allState).map(({ label, index, value }) => (
-                                                    <SelectPicker.Item label={label} value={label} key={value} />
-                                                ))}
-                                            </SelectPicker>
-                                        </View>
-                                        <View style={{ width: '2%' }}></View>
-                                        <View style={{ justifyContent: 'space-around', alignSelf: 'flex-end', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '49%', height: 60, borderRadius: 5 }} >
+                                        <View style={{ padding: 10, bottom: 10 }}>
                                             <TextInput
                                                 //  containerWidth={300 / 2}
                                                 noUnderline={true}
                                                 labelColor={'black'}
-                                                label="   City"
+                                                keyboardType="numeric"
+                                                label="Pincode"
                                                 underlineColor={'grey'}
                                                 multiline={true}
                                                 underlineActiveColor={'grey'}
                                                 labelActiveColor={'grey'}
-                                                value={this.state.selectcity}
+                                                value={this.state.pincode}
                                                 refrance={(refrance) => {
                                                     this.input = refrance;
                                                 }}
-                                                onChangeText={(text) => this.setState({ selectcity: text })}
+                                                onChangeText={(text) => this.setState({ pincode: text })}
                                             />
+                                        </View>
+                                    </View>
+                                    {/* <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'lightgrey', marginTop: 10, width: 160, height: 60 }}> */}
+                                    <View style={{ flexDirection: 'row', }}>
+                                        <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '49%', height: 60, borderRadius: 5 }}>
+                                            <View>
+                                                <SelectPicker
+                                                    style={{ marginLeft: 10, bottom: 3 }}
+                                                    onValueChange={(state) => {
+                                                        this.setState({ selectstate: state })
+                                                    }}
+                                                    placeholder={'State'}
+                                                    placeholderStyle={{ color: 'black', right: 10, marginTop: 12 }}
+                                                // selected={this.state.state}
+                                                >
+                                                    {Object.values(this.state.allState).map(({ label, index, value }) => (
+                                                        <SelectPicker.Item label={label} value={label} key={value} />
+                                                    ))}
+                                                </SelectPicker>
+                                            </View>
+                                        </View>
+                                        <View style={{ width: '2%' }}></View>
+                                        <View style={{ justifyContent: 'space-around', alignSelf: 'flex-end', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '49%', height: 60, borderRadius: 5 }} >
+                                            <View style={{ padding: 10, }}>
+                                                <TextInput
+                                                    //  containerWidth={300 / 2}
+                                                    noUnderline={true}
+                                                    labelColor={'black'}
+                                                    label="City"
+                                                    underlineColor={'grey'}
+                                                    multiline={true}
+                                                    underlineActiveColor={'grey'}
+                                                    labelActiveColor={'grey'}
+                                                    value={this.state.selectcity}
+                                                    refrance={(refrance) => {
+                                                        this.input = refrance;
+                                                    }}
+                                                    onChangeText={(text) => this.setState({ selectcity: text })}
+                                                />
+                                            </View>
                                         </View>
                                     </View>
                                     {/* </View> */}
                                     <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '100%', height: 60, borderRadius: 5 }}>
-                                        <TextInput
-                                            //  containerWidth={680 / 2}
-                                            noUnderline={true}
-                                            labelColor={'black'}
-                                            label="   House No., Building Name"
-                                            // placeholder={'House No, Building Name'}
-                                            // placeholderTextColor="black"
-                                            underlineColor={'grey'}
-                                            multiline={true}
-                                            underlineActiveColor={'grey'}
-                                            labelActiveColor={'grey'}
-                                            value={this.state.Addaddress}
-                                            refrance={(refrance) => {
-                                                this.input = refrance;
-                                            }}
-                                            onChangeText={(text) => this.setState({ Addaddress: text })}
-                                        />
+                                        <View style={{ padding: 10, bottom: 10 }}>
+                                            <TextInput
+                                                //  containerWidth={680 / 2}
+                                                noUnderline={true}
+                                                labelColor={'black'}
+                                                label="House No., Building Name"
+                                                // placeholder={'House No, Building Name'}
+                                                // placeholderTextColor="black"
+                                                underlineColor={'grey'}
+                                                multiline={true}
+                                                underlineActiveColor={'grey'}
+                                                labelActiveColor={'grey'}
+                                                value={this.state.Addaddress}
+                                                refrance={(refrance) => {
+                                                    this.input = refrance;
+                                                }}
+                                                onChangeText={(text) => this.setState({ Addaddress: text })}
+                                            />
+                                        </View>
                                     </View>
                                     <View style={{ justifyContent: 'flex-start', alignSelf: 'flex-start', borderWidth: 1, borderColor: 'black', marginTop: 10, width: '100%', height: 60, borderRadius: 5 }}>
-                                        <TextInput
-                                            //   containerWidth={680 / 2}
-                                            noUnderline={true}
-                                            labelColor={'black'}
-                                            label="   Road name, Area, Colony"
-                                            underlineColor={'grey'}
-                                            multiline={true}
-                                            underlineActiveColor={'grey'}
-                                            labelActiveColor={'grey'}
-                                            value={this.state.AddroadName}
-                                            refrance={(refrance) => {
-                                                this.input = refrance;
-                                            }}
-                                            onChangeText={(text) => this.setState({ AddroadName: text })}
-                                        />
+                                        <View style={{ padding: 10, bottom: 10 }}>
+                                            <TextInput
+                                                //   containerWidth={680 / 2}
+                                                noUnderline={true}
+                                                labelColor={'black'}
+                                                label="Road name, Area, Colony"
+                                                underlineColor={'grey'}
+                                                multiline={true}
+                                                underlineActiveColor={'grey'}
+                                                labelActiveColor={'grey'}
+                                                value={this.state.AddroadName}
+                                                refrance={(refrance) => {
+                                                    this.input = refrance;
+                                                }}
+                                                onChangeText={(text) => this.setState({ AddroadName: text })}
+                                            />
+                                        </View>
                                     </View>
                                     <TouchableOpacity onPress={() => this.saveValueFunction()} style={{ height: 50, width: '100%', justifyContent: 'center', alignSelf: 'center', backgroundColor: 'black', marginTop: 15, borderRadius: 5 }}>
                                         <Text style={{ justifyContent: 'center', alignSelf: 'center', fontSize: 18, fontWeight: 'bold', color: 'white' }}>Save Address</Text>
@@ -350,11 +364,11 @@ const styles = StyleSheet.create({
         // flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22,
+        //marginTop: 22,
         // backgroundColor:'white'
     },
     modalView: {
-        marginTop: 20,
+        // marginTop: 20,
         //  backgroundColor: '#dfe6f0',
         width: '100%',
         height: '100%',
@@ -370,7 +384,7 @@ const styles = StyleSheet.create({
         // shadowRadius: 4,
         // elevation: 1
     },
-   
+
 
 });
 

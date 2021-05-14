@@ -187,15 +187,15 @@ export class HomeScreen extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: '#f0f2f0', }}>
+            <View style={{ flex: 1, backgroundColor:'#f0f2f0'}}>
                 <View>
-                    {this.state.loginModalCheck && <LoginModel 
-                     handleClickfunction={this.handleClick}
+                    {this.state.loginModalCheck && <LoginModel
+                        handleClickfunction={this.handleClick}
                     />}
                 </View>
                 {!this.state.appLoading && this.state.timer < 2 ?
                     <View>
-                        <View style={{ height: 60, width: '100%', backgroundColor: 'black' }}>
+                        <View style={{ height: 60, width: '100%', backgroundColor: '#04046c' }}>
                             <View style={{ flexDirection: 'row' }}>
                                 <View style={{ flex: 1 }}>
                                     <SearchBar
@@ -249,22 +249,22 @@ export class HomeScreen extends Component {
 
                             </View>
 
-                            <View style={{ margin: 10, }}>
+                            <View style={{ margin: 10,  }}>
                                 <FlatList
                                     data={this.state.ServicesData.list}
                                     renderItem={({ item }) => (
-                                        <View style={{ height: '100%', width: '20%', padding: 5, backgroundColor: '#f0f2f0' }}>
+                                        <View style={{ height: '100%', width: '20%', padding: 5, }}>
                                             <View style={{
                                                 flex: 1 / 5,
                                                 width: '100%',
                                                 height: '100%',
-                                                paddingVertical: '16%',
+                                                paddingVertical: '18%',
                                                 borderRadius: 500 / 2,
                                                 backgroundColor: 'white',
-                                                // elevation: 2,
                                                 justifyContent: 'center',
-                                                alignSelf: 'center'
-
+                                                alignSelf: 'center',
+                                                elevation: 15,
+                                                shadowColor: 'lightgrey',
                                             }}>
                                                 <TouchableOpacity onPress={() => {
                                                     if (item.typeId == 1) {

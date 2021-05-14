@@ -17,7 +17,5 @@ export * from './TCScreen';
 export * from './FAQsScreen';
 export * from './PrivacyPolicyScreen';
 export * from './RefundPolicyScreen';
-export * from  './ReferEarnScreen';
 export * from './OrderServiceScreen';
-
 export * from './Icons';

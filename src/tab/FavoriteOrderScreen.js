@@ -170,7 +170,7 @@ export class FavoriteOrderScreen extends Component {
     render() {
         return (
             <SafeAreaView style={{ flex: 1, backgroundColor: '#f0f2f0', }}>
-                <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: 'black', }} >
+                <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: '#04046c', }} >
                     <TouchableOpacity style={{ margin: 5, padding: 5, alignSelf: 'center' }}
                         onPress={() => this.props.navigation.goBack()}>
                         <Icon name="chevron-back" size={35} color="white" />
@@ -183,8 +183,8 @@ export class FavoriteOrderScreen extends Component {
                             <Image source={require('../../res/banner.jpg')} style={{ height: 150, width: '100%',}} />
                         </View>
                         <View style={{ flexDirection: 'row', height: 50, backgroundColor: 'white', }}>
-                            <TouchableOpacity onPress={() => { this.setState({ changeBTN: 1 }) }} style={{ flex: 1, borderBottomColor: this.state.changeBTN === 1 ? 'orange' : 'white', borderBottomWidth: 2 }} ><Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold', marginTop: 10, color: this.state.changeBTN === 1 ? 'orange' : 'black' }} >Favorite Shops </Text></TouchableOpacity>
-                            <TouchableOpacity onPress={() => { this.setState({ changeBTN: 2 }) }} style={{ flex: 1, borderBottomColor: this.state.changeBTN === 1 ? 'white' : 'orange', borderBottomWidth: 2 }}><Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold', marginTop: 10, color: this.state.changeBTN === 1 ? 'black' : 'orange' }}>Favorite Service</Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => { this.setState({ changeBTN: 1 }) }} style={{ flex: 1, borderBottomColor: this.state.changeBTN === 1 ? 'orange' : 'white', borderBottomWidth: 2 }} ><Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold', marginTop: 10, color: this.state.changeBTN === 1 ? 'orange' : '#04046c' }} >Favorite Shops </Text></TouchableOpacity>
+                            <TouchableOpacity onPress={() => { this.setState({ changeBTN: 2 }) }} style={{ flex: 1, borderBottomColor: this.state.changeBTN === 1 ? 'white' : 'orange', borderBottomWidth: 2 }}><Text style={{ textAlign: 'center', fontSize: 18, fontWeight: 'bold', marginTop: 10, color: this.state.changeBTN === 1 ? '#04046c' : 'orange' }}>Favorite Service</Text></TouchableOpacity>
                         </View>
                         <View style={{ flexDirection: 'row', height: 5, backgroundColor: '#f2f2f2', }}>
                         </View>

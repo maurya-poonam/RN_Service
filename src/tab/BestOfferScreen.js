@@ -55,7 +55,7 @@ export class BestOfferScreen extends Component {
         return (
             <View style={{ height: '100%', backgroundColor: '#f0f2f0', }}>
 
-                <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: 'black', }} >
+                <View style={{ flexDirection: 'row', height: 60, width: '100%', backgroundColor: '#04046c', }} >
                     <TouchableOpacity style={{ margin: 5, padding: 5, alignSelf: 'center' }}
                         onPress={() => this.props.navigation.goBack()}>
                         <Icon name="chevron-back" size={35} color="white" />

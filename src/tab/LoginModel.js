@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import PhoneInput from "react-native-phone-number-input";
 import { makeRequest } from '../api/apiCall';
 import APIConstant from '../api/apiConstant';
+import GlobalAppModal from '../Modal/GlobalAppModal';
 const { width } = Dimensions.get('window')
 var fixWidth = width / 1.7
 
@@ -97,7 +98,8 @@ export class LoginModel extends Component {
         } catch (error) {
             console.log('error while store data : ' + error)
         } finally {
-            //this.setState({ modalVisible: false })
+            this.setState({ modalVisible: false })
+            // console.warn("Login data load.")
         }
     }
 
@@ -132,6 +134,10 @@ export class LoginModel extends Component {
                     // this.setState({
                     //     modalVisible: false
                     // })
+                    GlobalAppModal.setaccessToken(response.accessToken)
+                    GlobalAppModal.setrefreshToken(response.refreshToken)
+                    GlobalAppModal.setmobileNo(response.responsedata.mobileNo)
+                    
                     this.handleClickfunction2()
                     // this._storeLoginData(response.responsedata);
                     // this.props.navigation.push('HomeApp');
@@ -276,7 +282,7 @@ export class LoginModel extends Component {
             this.setState({ c_passwordError: 'Please enter confirm password' })
         }
         if (this.state.name !== '' && this.state.mobilenumber !== '' && this.state.password !== '' && this.state.confirmPassword !== '' && this.state.password === this.state.confirmPassword) {
-                this._callSignUp();
+            this._callSignUp();
         }
     }
     render() {
@@ -296,7 +302,7 @@ export class LoginModel extends Component {
                             flex: 1,
                             backgroundColor: 'orange',
                         }}>
-                            <Image source={require('../../res/logo.png')} resizeMode='contain' style={{ width: '30%', height: '20%', alignSelf: 'center', justifyContent: 'center', margin: 10 }} />
+                            <Image source={require('../../res/logo6.png')} resizeMode='contain' style={{ width: '80%', height: '20%', alignSelf: 'center', justifyContent: 'center', margin: 10 }} />
                             {
                                 this.state.RegLogcheck
                                     ?
@@ -305,8 +311,7 @@ export class LoginModel extends Component {
                                             <View style={{ marginTop: '10%', justifyContent: 'center', alignSelf: 'center' }}>
                                                 <Text style={styles.titleText}>Login</Text>
                                                 <View style={{ flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: 'grey', width: fixWidth }}>
-                                                    <View>
-                                                        <CountryPicker
+                                                    {/* <CountryPicker
                                                             disable={false}
                                                             animationType={'slide'}
                                                             containerStyle={{
@@ -326,34 +331,13 @@ export class LoginModel extends Component {
                                                             searchButtonImage={require('../../res/search.png')}
                                                             countryCode={this.state.mCountryCode}
                                                             selectedValue={this._selectedValue}
-                                                        />
-                                                        {/* <PhoneInput
-                                                            //  ref={phoneInput}
-                                                            defaultValue={this.state.phonenumber}
-                                                            defaultCode="IN"
-                                                            layout="first"
-                                                            onChangeText={(phonenumber) => this.setState({ phonenumber })
-                                                            }
-                                                            
-                                                        //placeholder='Enter Mobile Number'
-                                                        onChangeFormattedText={(phonenumber) => {
-                                                          this.setState({ phonenumber})
-                                                        }}
-                                                        error={this.state.phoneError}
-                                                        // withDarkTheme
-                                                        // withShadow
-                                                        // autoFocus
-                                                        // containerStyle={{
-                                                        // //  backgroundColor:'red',
-                                                        //   height:50
-                                                        // }}
-                                                        // textContainerStyle={{
-                                                        //  // backgroundColor:'green'
-                                                        // }}
-
                                                         /> */}
+                                                    <View style={{ flexDirection: 'row', marginTop: 18 }}>
+                                                        <Image source={require('../../res/flag2.png')} resizeMode='contain' style={{ width: 25, height: 25 }} />
+                                                        <Text style={{ marginTop: 2 }}> +91</Text>
                                                     </View>
-                                                    <View style={{ marginLeft: 15 }}>
+
+                                                    <View style={{ marginLeft: 8 }}>
                                                         <TextInput
                                                             // leftIcon="call"
                                                             // leftIconType="MaterialIcons"
@@ -383,7 +367,7 @@ export class LoginModel extends Component {
                                                     leftIcon="key"
                                                     leftIconType="material"
                                                     leftIconSize={20}
-                                                    leftIconColor='black'
+                                                    leftIconColor='#04046c'
                                                     labelColor="black"
                                                     label="Enter your password"
                                                     underlineColor="grey"
@@ -440,112 +424,113 @@ export class LoginModel extends Component {
                                     :
                                     <View style={{ flex: 1, height: '100%', width: '100%', backgroundColor: 'white', borderTopLeftRadius: 70, }}>
                                         <ScrollView>
-                                            <View style={{ marginTop: '10%', justifyContent: 'center', alignSelf: 'center', width: '60%', }}>
+                                            <View style={{ marginTop: '10%', justifyContent: 'center', alignSelf: 'center', }}>
                                                 <Text style={styles.titleText}>Sign Up</Text>
-                                                <TextInput
-                                                    leftIcon="person-circle"
-                                                    leftIconType="ion"
-                                                    leftIconSize={20}
-                                                    leftIconColor='black'
-                                                    labelColor="black"
-                                                    label="Enter your name"
-                                                    underlineColor="grey"
-                                                    underlineActiveColor="black"
-                                                    labelActiveColor="black"
-                                                    containerWidth={fixWidth}
-                                                    value={this.state.name}
-                                                    refrance={(refrance) => {
-                                                        this.input = refrance;
-                                                    }}
-                                                    onChangeText={(name) => this.setState({ name: name })}
-                                                    error={this.state.nameError}
-                                                />
-                                                <TextInput
-                                                    leftIcon="call"
-                                                    leftIconType="MaterialIcons"
-                                                    leftIconSize={20}
-                                                    leftIconColor='black'
-                                                    keyboardType="numeric"
-                                                    labelColor="black"
-                                                    label="Enter mobile number"
-                                                    underlineColor="grey"
-                                                    underlineActiveColor="black"
-                                                    labelActiveColor="black"
-                                                    containerWidth={fixWidth}
-                                                    value={this.state.mobilenumber}
-                                                    refrance={(refrance) => {
-                                                        this.input = refrance;
-                                                    }}
-                                                    onChangeText={(mobilenumber) => this.setState({ mobilenumber })}
-                                                    error={this.state.mobileError}
-                                                />
-                                                {/* <TextInput
-                                                    leftIcon="device-mobile"
-                                                    leftIconType="oct"
-                                                    leftIconSize={20}
-                                                    leftIconColor='black'
-                                                    labelColor="black"
-                                                    label="Enter your email"
-                                                    underlineColor="grey"
-                                                    underlineActiveColor="black"
-                                                    labelActiveColor="black"
-                                                    value={this.state.email}
-                                                    refrance={(refrance) => {
-                                                        this.input = refrance;
-                                                    }}
-                                                    onChangeText={(email) => this.setState({ email })}
-
-                                                /> */}
-                                                <TextInput
-                                                    leftIcon="key"
-                                                    leftIconType="material"
-                                                    leftIconSize={20}
-                                                    leftIconColor='black'
-                                                    labelColor="black"
-                                                    label="Enter your password"
-                                                    underlineColor="grey"
-                                                    underlineActiveColor="black"
-                                                    labelActiveColor="black"
-                                                    containerWidth={fixWidth}
-                                                    secureTextEntry={this.state.isShowPassword}
-                                                    value={this.state.password}
-                                                    refrance={(refrance) => {
-                                                        this.input = refrance;
-                                                    }}
-                                                    onChangeText={(password) => this.setState({ password })}
-                                                    rightIcon={
-                                                        !this.state.isShowPassword ? 'eye-off-outline' : 'eye-outline'
-                                                    }
-                                                    onPressRightIcon={() => this.setState({ isShowPassword: !this.state.isShowPassword })}
-                                                    error={this.state.passwordError}
-                                                    rightIconSize={20}
-                                                    rightIconColor={'black'}
-                                                />
-                                                <TextInput
-                                                    leftIcon="key"
-                                                    leftIconType="material"
-                                                    leftIconSize={20}
-                                                    leftIconColor='black'
-                                                    labelColor="black"
-                                                    label="Enter your confirm password"
-                                                    underlineColor="grey"
-                                                    underlineActiveColor="black"
-                                                    labelActiveColor="black"
-                                                    containerWidth={fixWidth}
-                                                    secureTextEntry={this.state.isConfirmPassword}
-                                                    value={this.state.confirmPassword}
-                                                    refrance={(refrance) => {
-                                                        this.input = refrance;
-                                                    }}
-                                                    onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
-                                                    rightIcon={
-                                                        !this.state.isConfirmPassword ? 'eye-off-outline' : 'eye-outline'
-                                                    }
-                                                    onPressRightIcon={() => this.setState({ isConfirmPassword: !this.state.isConfirmPassword })}
-                                                    error={this.state.c_passwordError}
-                                                    rightIconSize={20}
-                                                    rightIconColor={'black'}
-                                                />
+                                                <View style={{ borderBottomWidth: 1, borderBottomColor: 'grey', width: fixWidth }}>
+                                                    <TextInput
+                                                        leftIcon="person-circle"
+                                                        leftIconType="ion"
+                                                        leftIconSize={20}
+                                                        leftIconColor='#04046c'
+                                                        labelColor="black"
+                                                        label="Enter your name"
+                                                        underlineColor="grey"
+                                                        underlineActiveColor="black"
+                                                        labelActiveColor="black"
+                                                        containerWidth={fixWidth}
+                                                        noUnderline={true}
+                                                        value={this.state.name}
+                                                        refrance={(refrance) => {
+                                                            this.input = refrance;
+                                                        }}
+                                                        onChangeText={(name) => this.setState({ name: name })}
+                                                        error={this.state.nameError}
+                                                    />
+                                                </View>
+                                                <View style={{ flexDirection: 'row', marginTop: 6, alignSelf: 'center', borderBottomWidth: 1, borderBottomColor: 'grey', width: fixWidth }}>
+                                                    <View style={{ flexDirection: 'row', marginTop: 19 }}>
+                                                        <Image source={require('../../res/flag2.png')} resizeMode='contain' style={{ width: 25, height: 25 }} />
+                                                        <Text style={{ marginTop: 2 }}> +91</Text>
+                                                    </View>
+                                                    <View style={{marginLeft:8}}>
+                                                        <TextInput
+                                                            // leftIcon="call"
+                                                            // leftIconType="MaterialIcons"
+                                                            // leftIconSize={20}
+                                                            // leftIconColor='black'
+                                                            keyboardType="numeric"
+                                                            labelColor="black"
+                                                            label="Enter mobile number"
+                                                            underlineColor="grey"
+                                                            underlineActiveColor="black"
+                                                            labelActiveColor="black"
+                                                            containerWidth={fixWidth / 2}
+                                                            noUnderline={true}
+                                                            value={this.state.mobilenumber}
+                                                            refrance={(refrance) => {
+                                                                this.input = refrance;
+                                                            }}
+                                                            onChangeText={(mobilenumber) => this.setState({ mobilenumber })}
+                                                            error={this.state.mobileError}
+                                                        />
+                                                    </View>
+                                                </View>
+                                                <View style={{ borderBottomWidth: 1, borderBottomColor: 'grey', width: fixWidth }}>
+                                                    <TextInput
+                                                        leftIcon="key"
+                                                        leftIconType="material"
+                                                        leftIconSize={20}
+                                                        leftIconColor='#04046c'
+                                                        labelColor="black"
+                                                        label="Enter your password"
+                                                        underlineColor="grey"
+                                                        underlineActiveColor="black"
+                                                        labelActiveColor="black"
+                                                        containerWidth={fixWidth}
+                                                        noUnderline={true}
+                                                        secureTextEntry={this.state.isShowPassword}
+                                                        value={this.state.password}
+                                                        refrance={(refrance) => {
+                                                            this.input = refrance;
+                                                        }}
+                                                        onChangeText={(password) => this.setState({ password })}
+                                                        rightIcon={
+                                                            !this.state.isShowPassword ? 'eye-off-outline' : 'eye-outline'
+                                                        }
+                                                        onPressRightIcon={() => this.setState({ isShowPassword: !this.state.isShowPassword })}
+                                                        error={this.state.passwordError}
+                                                        rightIconSize={20}
+                                                        rightIconColor={'black'}
+                                                    />
+                                                </View>
+                                                <View style={{ borderBottomWidth: 1, borderBottomColor: 'grey', width: fixWidth }} >
+                                                    <TextInput
+                                                        leftIcon="key"
+                                                        leftIconType="material"
+                                                        leftIconSize={20}
+                                                        leftIconColor='#04046c'
+                                                        labelColor="black"
+                                                        label="Enter your confirm password"
+                                                        underlineColor="grey"
+                                                        underlineActiveColor="black"
+                                                        labelActiveColor="black"
+                                                        containerWidth={fixWidth}
+                                                        noUnderline={true}
+                                                        secureTextEntry={this.state.isConfirmPassword}
+                                                        value={this.state.confirmPassword}
+                                                        refrance={(refrance) => {
+                                                            this.input = refrance;
+                                                        }}
+                                                        onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
+                                                        rightIcon={
+                                                            !this.state.isConfirmPassword ? 'eye-off-outline' : 'eye-outline'
+                                                        }
+                                                        onPressRightIcon={() => this.setState({ isConfirmPassword: !this.state.isConfirmPassword })}
+                                                        error={this.state.c_passwordError}
+                                                        rightIconSize={20}
+                                                        rightIconColor={'black'}
+                                                    />
+                                                </View>
                                             </View>
                                             <View style={{ backgroundColor: 'black', margin: 10, padding: 10, width: '60%', alignSelf: 'center', borderTopLeftRadius: 10, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, top: 5 }}>
                                                 <TouchableOpacity onPress={this._SignUpValidates}>
