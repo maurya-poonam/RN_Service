@@ -16,7 +16,7 @@ import {
   RateScreen,
   TCScreen,
   FAQsScreen,
-  PrivacyPolicyScreen, ReferEarnScreen,
+  PrivacyPolicyScreen, 
   RefundPolicyScreen,
   OrderServiceScreen
 
@@ -107,9 +107,7 @@ function getTabBarVisibleWallet(route) {
     : route.params?.screen || 'Wallet';
   console.log(route);
 
-  if (routeName === 'Refer') {
-    return false;
-  }
+  
 
 }
 
@@ -164,7 +162,6 @@ function WalletStack() {
   return (
     <StackWallet.Navigator initialRouteName="Profile">
       <StackWallet.Screen name="Wallet" component={WalletScreen} options={navOptionHandler} />
-      <StackWallet.Screen name="Refer" component={ReferEarnScreen} options={navOptionHandler} />
     </StackWallet.Navigator>
   )
 }
@@ -190,13 +187,13 @@ function TabNavigator() {
             iconName = focused ? 'md-settings' : 'md-settings-outline';
           }
           // You can return any component that you like here!
-          return <Icon name={iconName} size={size} color={color} />;
+          return <Icon name={iconName} size={size} color={color}  />;
         },
       })}
       tabBarOptions={{
         activeTintColor: 'white',
         inactiveTintColor: 'black',
-        style: { backgroundColor: 'orange' }
+        style: { backgroundColor: 'rgb(255, 136, 0)' }
       }}
     >
       <Tab.Screen name="Home" component={HomeStack}
@@ -217,9 +214,6 @@ function TabNavigator() {
 const StackApp = createStackNavigator();
 
 export default function App() {
-  AsyncStorage.getItem('token').then((token) => {
-    console.log('auth stack', token);
-  })
   return (
     <NavigationContainer>
       <StackApp.Navigator
